@@ -48,7 +48,7 @@ idf.py menuconfig
 
 Set the information of your access point.
 
-![config-wifi-1](https://user-images.githubusercontent.com/6020549/164380147-e22abd81-4b31-4781-8bff-f4725eba9c61.jpg)
+![config-wifi-1](https://user-images.githubusercontent.com/6020549/164383151-ea783d1c-406b-42d5-9767-2e6911be9b2f.jpg)
 
 You can use mDNS.   
 ![config-wifi-2](https://user-images.githubusercontent.com/6020549/164380164-8be36ca2-a5c4-402e-b83d-d21513e66c55.jpg)
