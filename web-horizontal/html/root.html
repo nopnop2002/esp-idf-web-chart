@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content=""/>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	-->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<script type="text/javascript" src="gauge.min.js"></script>
+	<title>ADC Meter</title>
+</head>
+
+<body>
+	<h1 id="header"></h1>
+
+	<canvas id="canvas1"></canvas>
+
+	<canvas id="canvas2"></canvas>
+
+	<canvas id="canvas3"></canvas>
+
+	<script>
+		var gauge1 = new LinearGauge({
+			renderTo: 'canvas1',
+			width: 600,
+			height: 140,
+			//units: "mV",
+			minValue: 0,
+			maxValue: 3500,
+			majorTicks: [
+				"0", "500", "1000", "1500", "2000", "2500", "3000", "3500"
+			],
+			minorTicks: 2,
+			strokeTicks: true,
+			highlights: [
+				{ from: 2500, to: 3000, color: "rgba(200, 250, 50, .75)" },
+				{ from: 3000, to: 3500, color: "rgba(200, 50, 50, .75)" }
+			],
+			colorPlate: "#fff",
+			//colorBarProgress: "#327ac0",
+			colorBarProgress: "#00bfff",
+			colorBar: "#f5f5f5",
+			borderShadowWidth: 0,
+			borders: false,
+			needleType: "line",
+			needleWidth: 8,
+			animationDuration: 1500,
+			animationRule: "linear",
+			tickSide: "left",
+			numberSide: "left",
+			needleSide: "left",
+			barStrokeWidth: 7,
+			barBeginCircle: false
+		}).draw();
+
+		var gauge2 = new LinearGauge({
+			renderTo: 'canvas2',
+			width: 600,
+			height: 140,
+			//units: "mV",
+			minValue: 0,
+			maxValue: 3500,
+			majorTicks: [
+				"0", "500", "1000", "1500", "2000", "2500", "3000", "3500"
+			],
+			minorTicks: 2,
+			strokeTicks: true,
+			highlights: [
+				{ from: 2500, to: 3000, color: "rgba(200, 250, 50, .75)" },
+				{ from: 3000, to: 3500, color: "rgba(200, 50, 50, .75)" }
+			],
+			colorPlate: "#fff",
+			//colorBarProgress: "#327ac0",
+			colorBarProgress: "#00bfff",
+			colorBar: "#f5f5f5",
+			borderShadowWidth: 0,
+			borders: false,
+			needleType: "line",
+			needleWidth: 8,
+			animationDuration: 1500,
+			animationRule: "linear",
+			tickSide: "left",
+			numberSide: "left",
+			needleSide: "left",
+			barStrokeWidth: 7,
+			barBeginCircle: false
+		}).draw();
+
+		var gauge3 = new LinearGauge({
+			renderTo: 'canvas3',
+			width: 600,
+			height: 140,
+			//units: "mV",
+			minValue: 0,
+			maxValue: 3500,
+			majorTicks: [
+				"0", "500", "1000", "1500", "2000", "2500", "3000", "3500"
+			],
+			minorTicks: 2,
+			strokeTicks: true,
+			highlights: [
+				{ from: 2500, to: 3000, color: "rgba(200, 250, 50, .75)" },
+				{ from: 3000, to: 3500, color: "rgba(200, 50, 50, .75)" }
+			],
+			colorPlate: "#fff",
+			//colorBarProgress: "#327ac0",
+			colorBarProgress: "#00bfff",
+			colorBar: "#f5f5f5",
+			borderShadowWidth: 0,
+			borders: false,
+			needleType: "line",
+			needleWidth: 8,
+			animationDuration: 1500,
+			animationRule: "linear",
+			tickSide: "left",
+			numberSide: "left",
+			needleSide: "left",
+			barStrokeWidth: 7,
+			barBeginCircle: false
+		}).draw();
+
+		document.getElementById("canvas1").style.display = "none";
+		document.getElementById("canvas2").style.display = "none";
+		document.getElementById("canvas3").style.display = "none";
+	</script>
+
+	<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
+
