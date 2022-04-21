@@ -72,7 +72,7 @@ ESP32 3.3V -------------- Ra of variable resistor
 ESP32 GPIO -------------- Vout of variable resistor
 
 ESP32 GND --------------- Rb of variable resistor
-``
+```
 
 - Flash firmware
 ```
