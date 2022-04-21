@@ -6,6 +6,7 @@ This project is a ADC1 Monitor for esp-idf that can be view remotely via a web b
 ![web-meter](https://user-images.githubusercontent.com/6020549/164379601-68aaf0e3-f50c-4776-8de1-216ce94d63df.jpg)
 ![web-horizontal](https://user-images.githubusercontent.com/6020549/164379617-143ab49b-af77-4cfe-9d65-6f213d724d28.jpg)
 ![web-vertical](https://user-images.githubusercontent.com/6020549/164379627-dac0078c-0a25-45bb-941f-d5588c87413b.jpg)
+![web-chart](https://user-images.githubusercontent.com/6020549/164565773-05d37c97-0cfc-4573-9e19-76f6f2d7757d.jpg)
 
 # ADC Attenuation   
 This project uses ADC_ATTEN_DB_11(11dB) for attenuation.   

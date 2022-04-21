@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!--
+	<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@1.9.0"></script>
+	-->
+	<script type="text/javascript" src="moment.min.js"></script>
+	<script type="text/javascript" src="Chart.min.js"></script>
+	<script type="text/javascript" src="chartjs-plugin-streaming.min.js"></script>
+</head>
+<body>
+	<div class="chart-container" style="position: relative; height:40vh; width:80vw">
+		<canvas id="myChart"></canvas>
+		<!--
+		<div>
+		<button id="pauseDataset" onclick="pauseDatasetPush('pause-request')">Pause Dataset</button>
+		<button id="fixedDataset" onclick="fixedDatasetPush('fixed-request')">Fixed Dataset</button>
+		<button id="resumeDataset" onclick="resumeDatasetPush('resume-request')">Resume Dataset</button>
+		</div>
+		-->
+	</div>
+
+<script>
+var chartColors = {
+	red: 'rgb(255, 99, 132)',
+	orange: 'rgb(255, 159, 64)',
+	yellow: 'rgb(255, 205, 86)',
+	green: 'rgb(75, 192, 192)',
+	blue: 'rgb(54, 162, 235)',
+	purple: 'rgb(153, 102, 255)',
+	grey: 'rgb(201, 203, 207)',
+	white: 'rgb(255, 255, 255)'
+};
+
+var color = Chart.helpers.color;
+var config = {
+	type: 'line',
+	data: {
+		datasets: [{
+			label: '',
+			//backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
+			//borderColor: chartColors.red,
+			backgroundColor: color(chartColors.white).alpha(0.5).rgbString(),
+			borderColor: chartColors.white,
+			fill: false,
+			cubicInterpolationMode: 'monotone',
+			//for dash line
+			//lineTension: 0,
+			//borderDash: [8, 4],
+			data: []
+		}, {
+			label: '',
+			//backgroundColor: color(chartColors.green).alpha(0.5).rgbString(),
+			//borderColor: chartColors.green,
+			backgroundColor: color(chartColors.white).alpha(0.5).rgbString(),
+			borderColor: chartColors.white,
+			fill: false,
+			cubicInterpolationMode: 'monotone',
+			data: []
+		}, {
+			label: '',
+			//backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
+			///borderColor: chartColors.blue,
+			backgroundColor: color(chartColors.white).alpha(0.5).rgbString(),
+			borderColor: chartColors.white,
+			fill: false,
+			cubicInterpolationMode: 'monotone',
+			data: []
+		}]
+	},
+	options: {
+		title: {
+			display: true,
+			text: 'Line chart (hotizontal scroll)'
+		},
+		scales: {
+			xAxes: [{
+				type: 'realtime',
+				realtime: {
+					duration: 20000,
+					refresh: 1000,
+					delay: 2000,
+/*
+					onRefresh: onRefresh
+*/
+				}
+			}],
+			yAxes: [{
+				scaleLabel: {
+					display: true,
+					labelString: 'value'
+				}
+			}]
+		},
+		tooltips: {
+			enabled: false
+		},
+		hover: {
+			enabled: false
+		}
+/*
+		tooltips: {
+			mode: 'nearest',
+			intersect: false
+		},
+		hover: {
+			mode: 'nearest',
+			intersect: false
+		}
+*/
+	}
+};
+
+window.onload = function() {
+	var ctx = document.getElementById('myChart').getContext('2d');
+	window.myChart = new Chart(ctx, config);
+};
+
+</script>
+
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
