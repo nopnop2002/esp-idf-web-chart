@@ -4,3 +4,5 @@
 I used [this](https://nagix.github.io/chartjs-plugin-streaming/1.9.0/) for chart display.   
 You can easily change the chart design.   
 
+Document is [here](https://www.chartjs.org/docs/latest/).   
+
