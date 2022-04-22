@@ -74,7 +74,7 @@ ESP32C3 3.3V   -------------------------- Ra of variable resistor
 ESP32C3 GPIO00 -----------------------+-- Vout of variable resistor
                                       |
                  R1      R2      R3   |
-ESP32V3 GND    --^^^--+--^^^--+--^^^--+
+ESP32C3 GND    --^^^--+--^^^--+--^^^--+
                       |       |
                       |       |
 ESP32C3 GPIO01 -------+       |
