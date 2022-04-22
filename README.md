@@ -83,7 +83,7 @@ ESP32C3 GPIO01 -------+       |
 ESP32C3 GPIO02 ---------------+
 
 
-ESP32C3 GND ----------------------------- Rb of variable resistor
+ESP32C3 GND    -------------------------- Rb of variable resistor
 ```
 
 - Flash firmware
