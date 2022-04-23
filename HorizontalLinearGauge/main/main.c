@@ -234,11 +234,6 @@ static void http_serve(struct netconn *conn) {
 	extern const uint8_t main_js_end[] asm("_binary_main_js_end");
 	const uint32_t main_js_len = main_js_end - main_js_start;
 
-	// gauge.min.js
-	extern const uint8_t gauge_min_js_start[] asm("_binary_gauge_min_js_start");
-	extern const uint8_t gauge_min_js_end[] asm("_binary_gauge_min_js_end");
-	const uint32_t gauge_min_js_len = gauge_min_js_end - gauge_min_js_start;
-
 	// main.css
 	extern const uint8_t main_css_start[] asm("_binary_main_css_start");
 	extern const uint8_t main_css_end[] asm("_binary_main_css_end");
@@ -286,15 +281,6 @@ static void http_serve(struct netconn *conn) {
 				ESP_LOGI(TAG,"Sending /main.js");
 				netconn_write(conn, JS_HEADER, sizeof(JS_HEADER)-1,NETCONN_NOCOPY);
 				netconn_write(conn, main_js_start, main_js_len,NETCONN_NOCOPY);
-				netconn_close(conn);
-				netconn_delete(conn);
-				netbuf_delete(inbuf);
-			}
-
-			else if(strstr(buf,"GET /gauge.min.js ")) {
-				ESP_LOGI(TAG,"Sending /gauge_min.js");
-				netconn_write(conn, JS_HEADER, sizeof(JS_HEADER)-1,NETCONN_NOCOPY);
-				netconn_write(conn, gauge_min_js_start, gauge_min_js_len,NETCONN_NOCOPY);
 				netconn_close(conn);
 				netconn_delete(conn);
 				netbuf_delete(inbuf);
