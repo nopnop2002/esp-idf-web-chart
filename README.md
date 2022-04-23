@@ -1,7 +1,7 @@
 # esp-idf-web-analog
 ESP32 has two ADCs, ADC1 and ADC2.   
 You can use ADCs to convert analog values to digital values.   
-This project is a ADC1 Monitor for esp-idf that can be view remotely via a web browser.   
+This project is a demonstration of visualizing data via a web browser.    
 
 ![web-meter](https://user-images.githubusercontent.com/6020549/164379601-68aaf0e3-f50c-4776-8de1-216ce94d63df.jpg)
 ![web-horizontal](https://user-images.githubusercontent.com/6020549/164379617-143ab49b-af77-4cfe-9d65-6f213d724d28.jpg)
