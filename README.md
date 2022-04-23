@@ -32,7 +32,7 @@ It's a great job.
 
 ```
 git clone https://github.com/nopnop2002/esp-idf-web-analog
-cd esp-idf-web-analog/web-meter/
+cd esp-idf-web-analog/RadialGauge/
 git clone https://github.com/Molorius/esp32-websocket components/websocket
 ```
 
