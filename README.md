@@ -1,7 +1,8 @@
 # esp-idf-web-analog
-This project is a demonstration of __real-time visualization__ of data via a web browser.   
+This project is a demonstration of __real-time visualization of data__ via a web browser.   
 The purpose of this project is to introduce a library that can __visualize data in real time__.   
 Use the ADC value as the data to display.   
+   
 ESP32 has two ADCs, ADC1 and ADC2.   
 You can use ADCs to convert analog values to digital values.   
 The analog values change dynamically and are suitable for this demonstration.
