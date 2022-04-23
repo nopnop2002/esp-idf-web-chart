@@ -12,6 +12,7 @@ The analog values change dynamically and are suitable for this demonstration.
 ![web-vertical](https://user-images.githubusercontent.com/6020549/164379627-dac0078c-0a25-45bb-941f-d5588c87413b.jpg)
 ![Chartjs](https://user-images.githubusercontent.com/6020549/164872690-abad13da-563f-44a4-b579-b4dd25598c33.jpg)
 ![Plotly](https://user-images.githubusercontent.com/6020549/164872660-be85b191-c0ed-4f06-b04c-1ba6c020d6d7.jpg)
+![Epoch](https://user-images.githubusercontent.com/6020549/164948839-9a6997b3-6c40-441c-841e-be1a32b36890.jpg)
 
 # ADC Attenuation   
 This project uses ADC_ATTEN_DB_11(11dB) for attenuation.   

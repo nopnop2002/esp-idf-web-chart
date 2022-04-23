@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
+	<script src="https://d3js.org/d3.v3.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/epoch-charting@0.8.4/dist/css/epoch.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/epoch/0.8.4/js/epoch.min.js"></script>
+	<title>ADC Meter</title>
+</head>
+
+<body>
+
+	<style>
+		<!--
+		#1f77b4, #ff7f0e, #2ca02c, #d62728, #9467bd,
+		-->
+		.label1 {
+			color: #1f77b4;
+		}
+		.label2 {
+			color: #ff7f0e;
+		}
+		.label3 {
+			color: #2ca02c;
+		}
+	</style>
+
+	<h1 id="header"></h1>
+
+	<label for="chart1" id="label1" class="label1">Hoge</label>
+	<div id="chart1" class="epoch" style="width: 1000px; height: 200px"></div>
+	<label for="chart2" id="label2" class="label2">Fuga</label>
+	<div id="chart2" class="epoch" style="width: 1000px; height: 200px"></div>
+	<label for="chart3" id="label3" class="label3">Piyo</label>
+	<div id="chart3" class="epoch" style="width: 1000px; height: 200px"></div>
+
+	<script>
+
+		function getChartTime(){
+			var currentTime = parseInt(new Date().getTime() / 1000);
+			return currentTime;
+		}
+
+		var data = [{
+			values: [ {time: getChartTime(), y: 0} ]
+		}];
+
+		var chart1 = $('#chart1').epoch({
+			type: 'time.line',
+			data: data,
+			axes: ['left', 'bottom', 'right']
+		});
+
+		var chart2 = $('#chart2').epoch({
+			type: 'time.line',
+			data: data,
+			axes: ['left', 'bottom', 'right']
+		});
+
+		var chart3 = $('#chart3').epoch({
+			type: 'time.line',
+			data: data,
+			axes: ['left', 'bottom', 'right']
+		});
+
+	</script>
+
+	<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
+
