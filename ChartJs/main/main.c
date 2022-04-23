@@ -232,21 +232,6 @@ static void http_serve(struct netconn *conn) {
 	extern const uint8_t main_js_end[] asm("_binary_main_js_end");
 	const uint32_t main_js_len = main_js_end - main_js_start;
 
-	// moment.min.js
-	extern const uint8_t moment_js_start[] asm("_binary_moment_min_js_start");
-	extern const uint8_t moment_js_end[] asm("_binary_moment_min_js_end");
-	const uint32_t moment_js_len = moment_js_end - moment_js_start;
-
-	// Chart.min.js
-	extern const uint8_t Chart_js_start[] asm("_binary_Chart_min_js_start");
-	extern const uint8_t Chart_js_end[] asm("_binary_Chart_min_js_end");
-	const uint32_t Chart_js_len = Chart_js_end - Chart_js_start;
-
-	// chartjs-plugin-streaming.min.js
-	extern const uint8_t chartjs_plugin_streaming_js_start[] asm("_binary_chartjs_plugin_streaming_min_js_start");
-	extern const uint8_t chartjs_plugin_streaming_js_end[] asm("_binary_chartjs_plugin_streaming_min_js_end");
-	const uint32_t chartjs_plugin_streaming_js_len = chartjs_plugin_streaming_js_end - chartjs_plugin_streaming_js_start;
-
 	// main.css
 	extern const uint8_t main_css_start[] asm("_binary_main_css_start");
 	extern const uint8_t main_css_end[] asm("_binary_main_css_end");
@@ -294,33 +279,6 @@ static void http_serve(struct netconn *conn) {
 				ESP_LOGI(TAG,"Sending /main.js");
 				netconn_write(conn, JS_HEADER, sizeof(JS_HEADER)-1,NETCONN_NOCOPY);
 				netconn_write(conn, main_js_start, main_js_len,NETCONN_NOCOPY);
-				netconn_close(conn);
-				netconn_delete(conn);
-				netbuf_delete(inbuf);
-			}
-
-			else if(strstr(buf,"GET /moment.min.js ")) {
-				ESP_LOGI(TAG,"Sending /moment.min.js");
-				netconn_write(conn, JS_HEADER, sizeof(JS_HEADER)-1,NETCONN_NOCOPY);
-				netconn_write(conn, moment_js_start, moment_js_len,NETCONN_NOCOPY);
-				netconn_close(conn);
-				netconn_delete(conn);
-				netbuf_delete(inbuf);
-			}
-
-			else if(strstr(buf,"GET /Chart.min.js ")) {
-				ESP_LOGI(TAG,"Sending /Chart.min.js");
-				netconn_write(conn, JS_HEADER, sizeof(JS_HEADER)-1,NETCONN_NOCOPY);
-				netconn_write(conn, Chart_js_start, Chart_js_len,NETCONN_NOCOPY);
-				netconn_close(conn);
-				netconn_delete(conn);
-				netbuf_delete(inbuf);
-			}
-
-			else if(strstr(buf,"GET /chartjs-plugin-streaming.min.js ")) {
-				ESP_LOGI(TAG,"Sending /chartjs-plugin-streaming.min.js");
-				netconn_write(conn, JS_HEADER, sizeof(JS_HEADER)-1,NETCONN_NOCOPY);
-				netconn_write(conn, chartjs_plugin_streaming_js_start, chartjs_plugin_streaming_js_len,NETCONN_NOCOPY);
 				netconn_close(conn);
 				netconn_delete(conn);
 				netbuf_delete(inbuf);

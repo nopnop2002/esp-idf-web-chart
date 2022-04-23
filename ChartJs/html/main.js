@@ -61,8 +61,8 @@ websocket.onmessage = function(evt) {
 	switch(values[0]) {
 		case 'HEAD':
 			console.log("HEAD values[1]=" + values[1]);
-			//var h1 = document.getElementById( 'header' );
-			//h1.textContent = values[1];
+			var h1 = document.getElementById( 'header' );
+			h1.textContent = values[1];
 			break;
 
 		case 'METER':

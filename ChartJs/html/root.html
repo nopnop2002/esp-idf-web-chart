@@ -2,16 +2,13 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<!--
 	<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@1.9.0"></script>
-	-->
-	<script type="text/javascript" src="moment.min.js"></script>
-	<script type="text/javascript" src="Chart.min.js"></script>
-	<script type="text/javascript" src="chartjs-plugin-streaming.min.js"></script>
 </head>
 <body>
+	<h1 id="header"></h1>
+
 	<div class="chart-container" style="position: relative; height:40vh; width:80vw">
 		<canvas id="myChart"></canvas>
 		<!--
@@ -73,8 +70,7 @@ var config = {
 	},
 	options: {
 		title: {
-			display: true,
-			text: 'Line chart (hotizontal scroll)'
+			display: true
 		},
 		scales: {
 			xAxes: [{
@@ -82,16 +78,13 @@ var config = {
 				realtime: {
 					duration: 20000,
 					refresh: 1000,
-					delay: 2000,
-/*
-					onRefresh: onRefresh
-*/
+					delay: 2000
 				}
 			}],
 			yAxes: [{
 				scaleLabel: {
 					display: true,
-					labelString: 'value'
+					labelString: 'mV'
 				}
 			}]
 		},
