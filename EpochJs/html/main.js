@@ -71,22 +71,24 @@ websocket.onmessage = function(evt) {
 			console.log("DATA values[1]=" + values[1]);
 			var timeVal = getChartTime();
 			var voltage1 = parseInt(values[1], 10);
-      var catname = "category1";
-      //chart1.getVisibleLayers()[layer_num].className = "layer " + catname;
-      chart1.getVisibleLayers()[0].className = "layer " + catname;
+			// Set line color
+			var catname = "category1";
+			chart1.getVisibleLayers()[0].className = "layer " + catname;
 			chart1.push([ {time: timeVal, y: voltage1} ]);
 			if (meter2) {
 				console.log("DATA values[2]=" + values[2]);
 				var voltage2 = parseInt(values[2], 10);
-      	var catname = "category2";
-      	chart2.getVisibleLayers()[0].className = "layer " + catname;
+				// Set line color
+				var catname = "category2";
+				chart2.getVisibleLayers()[0].className = "layer " + catname;
 				chart2.push([ {time: timeVal, y: voltage2} ]);
 			}
 			if (meter3) {
 				console.log("DATA values[3]=" + values[3]);
 				var voltage3 = parseInt(values[3], 10);
-      	var catname = "category3";
-      	chart3.getVisibleLayers()[0].className = "layer " + catname;
+				// Set line color
+				var catname = "category3";
+				chart3.getVisibleLayers()[0].className = "layer " + catname;
 				chart3.push([ {time: timeVal, y: voltage3} ]);
 			}
 			break;
