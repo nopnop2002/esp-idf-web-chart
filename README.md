@@ -66,10 +66,10 @@ Set the information of gpio for analog input.
 It is possible to monitor 3 channels at the same time.   
 ![config-adc-2](https://user-images.githubusercontent.com/6020549/164380399-fe125c4f-006d-48cb-9e4e-f104c389b8b5.jpg)
 
-Analog input gpio for ESP32 is GPIO32 ~ GPIO39.   
-Analog input gpio for ESP32S2 is GPIO01 ~ GPIO10.   
-Analog input gpio for ESP32S3 is GPIO01 ~ GPIO10.   
-Analog input gpio for ESP32C3 is GPIO00 ~ GPIO04.   
+Analog input gpio for ESP32 is GPIO32 ~ GPIO39. 12Bits width.   
+Analog input gpio for ESP32S2 is GPIO01 ~ GPIO10. 13Bits width.   
+Analog input gpio for ESP32S3 is GPIO01 ~ GPIO10. 12Bits width.   
+Analog input gpio for ESP32C3 is GPIO00 ~ GPIO04. 12Bits width.   
 
 - Connect ESP32 and Analog source using wire cable   
 I used a variable resistor for testing.
