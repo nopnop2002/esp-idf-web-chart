@@ -54,10 +54,9 @@ idf.py menuconfig
 
 
 Set the information of your access point.
-
 ![config-wifi-1](https://user-images.githubusercontent.com/6020549/164383151-ea783d1c-406b-42d5-9767-2e6911be9b2f.jpg)
 
-You can use mDNS.   
+You can connect using the mDNS hostname instead of the IP address.   
 ![config-wifi-2](https://user-images.githubusercontent.com/6020549/164380164-8be36ca2-a5c4-402e-b83d-d21513e66c55.jpg)
 
 Set the information of gpio for analog input.
@@ -105,6 +104,22 @@ http:://{IP of ESP32}/
 or
 http://esp32-server.local/
 ```
+
+# Using mDNS hostname
+You can connect using the mDNS hostname instead of the IP address.   
+- esp-idf V4.4  
+ If you set CONFIG_MDNS_STRICT_MODE = y in sdkconfig.defaults, the firmware will be built with MDNS_STRICT_MODE.   
+ __If MDNS_STRICT_MODE is not set, mDNS name resolution will not be possible after long-term operation.__   
+- esp-idf V4.4.1   
+ mDNS component has been updated.   
+ If you set CONFIG_MDNS_STRICT_MODE = y in sdkconfig.defaults, the firmware will be built with MDNS_STRICT_MODE.   
+ __Even if MDNS_STRICT_MODE is set, mDNS name resolution will not be possible after long-term operation.__   
+- esp-idf V5.0 or later   
+ mDNS component has been updated.   
+ Long-term operation is possible without setting MDNS_STRICT_MODE.   
+ The following lines in sdkconfig.defaults should be removed before menuconfig.   
+ ```CONFIG_MDNS_STRICT_MODE=y```
+
 
 # WEB Pages
 WEB pages are stored in the html folder.   
