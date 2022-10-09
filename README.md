@@ -29,7 +29,7 @@ esp-idf v4.4 or later.
 This is because this version supports ESP32-C3.   
 
 
-# How to Install
+# Installation
 
 - Install websocket component   
 I used [this](https://github.com/Molorius/esp32-websocket) component.   
@@ -42,23 +42,24 @@ cd esp-idf-web-analog/RadialGauge/
 git clone https://github.com/Molorius/esp32-websocket components/websocket
 ```
 
-
-- Configuration of esp-idf
+# Configuration
 ```
 idf.py set-target {esp32/esp32s2/esp32s3/esp32c3}
 idf.py menuconfig
+idf.py flash monitor
 ```
 ![config-top](https://user-images.githubusercontent.com/6020549/164379960-58350b2d-17d4-48b5-84d1-615ff037242a.jpg)
 ![config-app](https://user-images.githubusercontent.com/6020549/164379982-149e4044-7889-4755-813e-0185fd082c9b.jpg)
 
 
-
+## WiFi Setting
 Set the information of your access point.
 ![config-wifi-1](https://user-images.githubusercontent.com/6020549/164383151-ea783d1c-406b-42d5-9767-2e6911be9b2f.jpg)
 
 You can connect using the mDNS hostname instead of the IP address.   
 ![config-wifi-2](https://user-images.githubusercontent.com/6020549/164380164-8be36ca2-a5c4-402e-b83d-d21513e66c55.jpg)
 
+## ADC Setting
 Set the information of gpio for analog input.
 ![config-adc-1](https://user-images.githubusercontent.com/6020549/164380386-c6dffeb8-9bdd-46bf-8e55-9c4ecef16090.jpg)
 
@@ -70,7 +71,8 @@ Analog input gpio for ESP32S2 is GPIO01 ~ GPIO10. 13Bits width.
 Analog input gpio for ESP32S3 is GPIO01 ~ GPIO10. 12Bits width.   
 Analog input gpio for ESP32C3 is GPIO00 ~ GPIO04. 12Bits width.   
 
-- Connect ESP32 and Analog source using wire cable   
+# Analog source
+Connect ESP32 and Analog source using wire cable   
 I used a variable resistor for testing.
 ```
 ESP32C3 3.3V   -------------------------- Ra of variable resistor
@@ -91,12 +93,7 @@ ESP32C3 GPIO02 ---------------+
 ESP32C3 GND    -------------------------- Rb of variable resistor
 ```
 
-- Flash firmware
-```
-idf.py flash monitor
-```
-
-- Launch a web browser   
+# Launch a web browser   
 Enter the following in the address bar of your web browser.   
 
 ```
