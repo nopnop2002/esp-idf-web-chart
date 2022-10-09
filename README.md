@@ -30,8 +30,6 @@ This is because this version supports ESP32-C3.
 
 
 # Installation
-
-- Install websocket component   
 I used [this](https://github.com/Molorius/esp32-websocket) component.   
 This component can communicate directly with the browser.   
 It's a great job.   
