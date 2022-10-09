@@ -4,7 +4,8 @@ The purpose of this project is to introduce a library that can __visualize data 
 Use the ADC value as the data to display.   
    
 ESP32 has two ADCs, ADC1 and ADC2.   
-You can use ADCs to convert analog values to digital values.   
+This project uses ADC1.   
+You can use ADC1 to convert analog values to digital values.   
 The analog values change dynamically and are suitable for this demonstration.
 
 ![web-meter](https://user-images.githubusercontent.com/6020549/164379601-68aaf0e3-f50c-4776-8de1-216ce94d63df.jpg)
