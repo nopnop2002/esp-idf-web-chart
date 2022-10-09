@@ -70,7 +70,7 @@ Analog input gpio for ESP32S3 is GPIO01 ~ GPIO10. 12Bits width.
 Analog input gpio for ESP32C3 is GPIO00 ~ GPIO04. 12Bits width.   
 
 # Analog source
-Connect ESP32 and Analog source using wire cable   
+Connect ESP32 and Analog source using wire cable.   
 I used a variable resistor for testing.
 ```
 ESP32C3 3.3V   -------------------------- Ra of variable resistor
