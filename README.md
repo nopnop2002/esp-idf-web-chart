@@ -26,7 +26,7 @@ But the range that can be measured accurately is as follows:
 
 
 # Software requirements
-esp-idf v4.4 or later.   
+esp-idf v4.4.   
 This is because this version supports ESP32-C3.   
 
 
