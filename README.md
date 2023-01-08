@@ -74,22 +74,26 @@ Analog input gpio for ESP32C3 is GPIO00 ~ GPIO04. 12Bits width.
 Connect ESP32 and Analog source using wire cable.   
 I used a variable resistor for testing.
 ```
-ESP32C3 3.3V   -------------------------- Ra of variable resistor
-
-
-ESP32C3 GPIO00 -----------------------+-- Vout of variable resistor
-                                      |
-                 R1      R2      R3   |
-ESP32C3 GND    --^^^--+--^^^--+--^^^--+
-                      |       |
-                      |       |
-ESP32C3 GPIO01 -------+       |
-                              |
-                              |
-ESP32C3 GPIO02 ---------------+
-
-
-ESP32C3 GND    -------------------------- Rb of variable resistor
+                                          +---------------------------+
+                                          |      variable resistor    |
+ESP32 3.3V   -----------------------------+ Ra of variable resistor   |
+                                          |                           |
+                                          |                           |
+ESP32 GPIO00 -------------------------+---+ Vout of variable resistor |
+                                      |   |                           |
+                  R1      R2      R3  |   |                           |
+ESP32 GND    ----^^^--+--^^^--+--^^^--+   |                           |
+                      |       |           |                           |
+                      |       |           |                           |
+ESP32 GPIO01 ---------+       |           |                           |
+                              |           |                           |
+                              |           |                           |
+ESP32 GPIO02 -----------------+           |                           |
+                                          |                           |
+                                          |                           |
+ESP32 GND    -----------------------------+ Rb of variable resistor   |
+                                          |                           |
+                                          +---------------------------+
 ```
 
 # Launch a web browser   
