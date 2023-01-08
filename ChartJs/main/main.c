@@ -538,9 +538,6 @@ void app_main() {
 	char DEL = 0x04;
 	char outBuffer[64];
 
-	bool active = true;
-	bool fixed = false;
-
 	while (1) {
 		size_t readBytes = xMessageBufferReceive(xMessageBufferMain, cRxBuffer, sizeof(cRxBuffer), portMAX_DELAY );
 		ESP_LOGD(TAG, "readBytes=%d", readBytes);
@@ -562,25 +559,8 @@ void app_main() {
 
 			if ( strcmp (id, "timer-request") == 0) {
 
-#if 0
-				//Single sampling
-				int adc_raw;
-				adc_raw = adc1_get_raw(adc1_channel1);
-				if (cali_enable) {
-					uint32_t voltage = esp_adc_cal_raw_to_voltage(adc_raw, &adc1_chars);
-					ESP_LOGI(TAG, "adc1_channel1: %d Raw: %d Voltage: %dmV", adc1_channel1, adc_raw, voltage);
-					sprintf(outBuffer,"DATA%c%d", DEL, voltage);
-					ESP_LOGD(TAG, "outBuffer=[%s]", outBuffer);
-					ws_server_send_text_all(outBuffer,strlen(outBuffer));
-				} else {
-					ESP_LOGW(TAG, "calibration fail");
-				}
-
-#endif
-
-				//Multi sampling
-				uint32_t adc_reading1 = 0;
 				uint32_t voltage1 = 0;
+				uint32_t adc_reading1 = 0;
 				for (int i = 0; i < NO_OF_SAMPLES; i++) {
 					adc_reading1 += adc1_get_raw(adc1_channel1);
 				}
@@ -616,29 +596,12 @@ void app_main() {
 #endif
 #endif // CONFIG_ENABLE_METER3
 
-				if (fixed == false) {
-					sprintf(outBuffer,"DATA%c%d%c%d%c%d", DEL, voltage1, DEL, voltage2, DEL, voltage3);
-					ESP_LOGD(TAG, "outBuffer=[%s]", outBuffer);
-				}
-				if (active) {
-					ws_server_send_text_all(outBuffer,strlen(outBuffer));
-				}
+				sprintf(outBuffer,"DATA%c%d%c%d%c%d", DEL, voltage1, DEL, voltage2, DEL, voltage3);
+				ESP_LOGD(TAG, "outBuffer=[%s]", outBuffer);
+				ws_server_send_text_all(outBuffer,strlen(outBuffer));
 
 				ESP_LOGD(TAG,"free_size:%d %d", heap_caps_get_free_size(MALLOC_CAP_8BIT), heap_caps_get_free_size(MALLOC_CAP_32BIT));
 
-			} // end if
-
-			if ( strcmp (id, "pause-request") == 0) {
-				active = false;
-			} // end if
-
-			if ( strcmp (id, "fixed-request") == 0) {
-				fixed = true;
-			} // end if
-
-			if ( strcmp (id, "resume-request") == 0) {
-				active = true;
-				fixed = false;
 			} // end if
 
 		} // end if
