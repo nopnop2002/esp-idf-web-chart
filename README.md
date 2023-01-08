@@ -79,16 +79,16 @@ I used a variable resistor for testing.
 ESP32 3.3V   -----------------------------+ Ra of variable resistor   |
                                           |                           |
                                           |                           |
-ESP32 GPIO00 -------------------------+---+ Vout of variable resistor |
+ESP32 GPIO32 -------------------------+---+ Vout of variable resistor |
                                       |   |                           |
                   R1      R2      R3  |   |                           |
 ESP32 GND    ----^^^--+--^^^--+--^^^--+   |                           |
                       |       |           |                           |
                       |       |           |                           |
-ESP32 GPIO01 ---------+       |           |                           |
+ESP32 GPIO33 ---------+       |           |                           |
                               |           |                           |
                               |           |                           |
-ESP32 GPIO02 -----------------+           |                           |
+ESP32 GPIO34 -----------------+           |                           |
                                           |                           |
                                           |                           |
 ESP32 GND    -----------------------------+ Rb of variable resistor   |
