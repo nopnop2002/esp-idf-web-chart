@@ -1,12 +1,14 @@
 /*
-	 Example using WEB Socket.
-	 This example code is in the Public Domain (or CC0 licensed, at your option.)
-	 Unless required by applicable law or agreed to in writing, this
-	 software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-	 CONDITIONS OF ANY KIND, either express or implied.
+	Example using WEB Socket.
+	This example code is in the Public Domain (or CC0 licensed, at your option.)
+	Unless required by applicable law or agreed to in writing, this
+	software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+	CONDITIONS OF ANY KIND, either express or implied.
 */
 
-#include "string.h"
+#include <stdio.h>
+#include <inttypes.h>
+#include <string.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
@@ -20,8 +22,12 @@
 #include "mdns.h"
 
 #include "soc/adc_channel.h"
-#include "driver/adc_common.h"
-#include "esp_adc_cal.h"
+#if ESP_IDF_VERSION_MAJOR == 5 && ESP_IDF_VERSION_MINOR == 0
+#include "driver/adc.h" //  Need legacy adc driver for ADC1_GPIOxx_CHANNEL
+#endif
+#include "esp_adc/adc_cali.h"
+#include "esp_adc/adc_cali_scheme.h"
+#include "esp_adc/adc_oneshot.h"
 
 #include "websocket_server.h"
 
@@ -37,30 +43,13 @@ static EventGroupHandle_t s_wifi_event_group;
  * - we are connected to the AP with an IP
  * - we failed to connect after the maximum amount of retries */
 #define WIFI_CONNECTED_BIT BIT0
-#define WIFI_FAIL_BIT			 BIT1
+#define WIFI_FAIL_BIT BIT1
 
 static const char *TAG = "main";
 
 static int s_retry_num = 0;
 
-//ADC Attenuation
-#define ADC_EXAMPLE_ATTEN	ADC_ATTEN_DB_11
-
-//ADC Calibration
-#if CONFIG_IDF_TARGET_ESP32
-#define ADC_EXAMPLE_CALI_SCHEME	ESP_ADC_CAL_VAL_EFUSE_VREF
-#elif CONFIG_IDF_TARGET_ESP32S2
-#define ADC_EXAMPLE_CALI_SCHEME	ESP_ADC_CAL_VAL_EFUSE_TP
-#elif CONFIG_IDF_TARGET_ESP32C3
-#define ADC_EXAMPLE_CALI_SCHEME	ESP_ADC_CAL_VAL_EFUSE_TP
-#elif CONFIG_IDF_TARGET_ESP32S3
-#define ADC_EXAMPLE_CALI_SCHEME	ESP_ADC_CAL_VAL_EFUSE_TP_FIT
-#endif
-
-static esp_adc_cal_characteristics_t adc1_chars;
-
-static void event_handler(void* arg, esp_event_base_t event_base,
-													int32_t event_id, void* event_data)
+static void event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
 {
 	if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
 		esp_wifi_connect();
@@ -96,15 +85,15 @@ void wifi_init_sta(void)
 	esp_event_handler_instance_t instance_any_id;
 	esp_event_handler_instance_t instance_got_ip;
 	ESP_ERROR_CHECK(esp_event_handler_instance_register(WIFI_EVENT,
-									ESP_EVENT_ANY_ID,
-									&event_handler,
-									NULL,
-									&instance_any_id));
+		ESP_EVENT_ANY_ID,
+		&event_handler,
+		NULL,
+		&instance_any_id));
 	ESP_ERROR_CHECK(esp_event_handler_instance_register(IP_EVENT,
-									IP_EVENT_STA_GOT_IP,
-									&event_handler,
-									NULL,
-									&instance_got_ip));
+		IP_EVENT_STA_GOT_IP,
+		&event_handler,
+		NULL,
+		&instance_got_ip));
 
 	wifi_config_t wifi_config = {
 		.sta = {
@@ -138,11 +127,9 @@ void wifi_init_sta(void)
 	/* xEventGroupWaitBits() returns the bits before the call returned, hence we can test which event actually
 	 * happened. */
 	if (bits & WIFI_CONNECTED_BIT) {
-		ESP_LOGI(TAG, "connected to ap SSID:%s password:%s",
-						 CONFIG_ESP_WIFI_SSID, CONFIG_ESP_WIFI_PASSWORD);
+		ESP_LOGI(TAG, "connected to ap SSID:%s password:%s", CONFIG_ESP_WIFI_SSID, CONFIG_ESP_WIFI_PASSWORD);
 	} else if (bits & WIFI_FAIL_BIT) {
-		ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s",
-						 CONFIG_ESP_WIFI_SSID, CONFIG_ESP_WIFI_PASSWORD);
+		ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s", CONFIG_ESP_WIFI_SSID, CONFIG_ESP_WIFI_PASSWORD);
 	} else {
 		ESP_LOGE(TAG, "UNEXPECTED EVENT");
 	}
@@ -183,24 +170,22 @@ void websocket_callback(uint8_t num,WEBSOCKET_TYPE_t type,char* msg,uint64_t len
 			ESP_LOGI(TAG,"client %i was disconnected",num);
 			break;
 		case WEBSOCKET_DISCONNECT_ERROR:
-			ESP_LOGE(TAG,"client %i was disconnected due to an error",num);
+			ESP_LOGI(TAG,"client %i was disconnected due to an error",num);
 			break;
 		case WEBSOCKET_TEXT:
 			if(len) { // if the message length was greater than zero
 				ESP_LOGI(TAG, "got message length %i: %s", (int)len, msg);
-				//size_t xBytesSent = xMessageBufferSend(xMessageBufferMain, msg, len, portMAX_DELAY);
-				BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-				size_t xBytesSent = xMessageBufferSendFromISR(xMessageBufferMain, msg, len, &xHigherPriorityTaskWoken);
+				size_t xBytesSent = xMessageBufferSendFromISR(xMessageBufferMain, msg, len, NULL);
 				if (xBytesSent != len) {
 					ESP_LOGE(TAG, "xMessageBufferSend fail");
 				}
 			}
 			break;
 		case WEBSOCKET_BIN:
-			ESP_LOGI(TAG,"client %i sent binary message of size %i:\n%s",num,(uint32_t)len,msg);
+			ESP_LOGI(TAG,"client %i sent binary message of size %"PRIu32":\n%s",num,(uint32_t)len,msg);
 			break;
 		case WEBSOCKET_PING:
-			ESP_LOGI(TAG,"client %i pinged us with message of size %i:\n%s",num,(uint32_t)len,msg);
+			ESP_LOGI(TAG,"client %i pinged us with message of size %"PRIu32":\n%s",num,(uint32_t)len,msg);
 			break;
 		case WEBSOCKET_PONG:
 			ESP_LOGI(TAG,"client %i responded to the ping",num);
@@ -380,41 +365,19 @@ static void server_handle_task(void* pvParameters) {
 	vTaskDelete(NULL);
 }
 
-static bool adc_calibration_init(void)
-{
-	esp_err_t ret;
-	bool cali_enable = false;
-
-	ret = esp_adc_cal_check_efuse(ADC_EXAMPLE_CALI_SCHEME);
-	if (ret == ESP_ERR_NOT_SUPPORTED) {
-		ESP_LOGW(TAG, "Calibration scheme not supported, skip software calibration");
-	} else if (ret == ESP_ERR_INVALID_VERSION) {
-		ESP_LOGW(TAG, "eFuse not burnt, skip software calibration");
-	} else if (ret == ESP_OK) {
-		cali_enable = true;
-		esp_adc_cal_characterize(ADC_UNIT_1, ADC_EXAMPLE_ATTEN, ADC_WIDTH_BIT_DEFAULT, 0, &adc1_chars);
-	} else {
-		ESP_LOGE(TAG, "Invalid arg");
-	}
-
-	return cali_enable;
-}
-
 // Timer callback
 static void timer_cb(TimerHandle_t xTimer)
 {
 	TickType_t nowTick;
 	nowTick = xTaskGetTickCount();
-	ESP_LOGD(TAG, "timer is called, now=%d",nowTick);
+	ESP_LOGD(TAG, "timer is called, now=%"PRIu32, nowTick);
 
 	cJSON *request;
 	request = cJSON_CreateObject();
 	cJSON_AddStringToObject(request, "id", "timer-request");
 	char *my_json_string = cJSON_Print(request);
 	ESP_LOGD(TAG, "my_json_string\n%s",my_json_string);
-	//size_t xBytesSent = xMessageBufferSend(xMessageBufferMain, my_json_string, strlen(my_json_string), portMAX_DELAY);
-	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-	size_t xBytesSent = xMessageBufferSendFromISR(xMessageBufferMain, my_json_string, strlen(my_json_string), &xHigherPriorityTaskWoken);
+	size_t xBytesSent = xMessageBufferSendFromISR(xMessageBufferMain, my_json_string, strlen(my_json_string), NULL);
 	if (xBytesSent != strlen(my_json_string)) {
 		ESP_LOGE(TAG, "xMessageBufferSend fail");
 	}
@@ -423,7 +386,7 @@ static void timer_cb(TimerHandle_t xTimer)
 }
 
 // convert from gpio to adc1 channel
-adc1_channel_t gpio2adc(int gpio) {
+adc_channel_t gpio2adc(int gpio) {
 #if CONFIG_IDF_TARGET_ESP32
 	if (gpio == 32) return ADC1_GPIO32_CHANNEL;
 	if (gpio == 33) return ADC1_GPIO33_CHANNEL;
@@ -446,7 +409,7 @@ adc1_channel_t gpio2adc(int gpio) {
 	if (gpio == 9) return ADC1_GPIO9_CHANNEL;
 	if (gpio == 10) return ADC1_GPIO10_CHANNEL;
 
-#elif CONFIG_IDF_TARGET_ESP32C3
+#elif CONFIG_IDF_TARGET_ESP32C2 || CONFIG_IDF_TARGET_ESP32C3
 	if (gpio == 0) return ADC1_GPIO0_CHANNEL;
 	if (gpio == 1) return ADC1_GPIO1_CHANNEL;
 	if (gpio == 2) return ADC1_GPIO2_CHANNEL;
@@ -457,7 +420,55 @@ adc1_channel_t gpio2adc(int gpio) {
 	return -1;
 }
 
-#define NO_OF_SAMPLES		64					//Multisampling
+static bool adc_calibration_init(adc_unit_t unit, adc_atten_t atten, adc_cali_handle_t *out_handle)
+{
+	adc_cali_handle_t handle = NULL;
+	esp_err_t ret = ESP_FAIL;
+	bool calibrated = false;
+
+#if ADC_CALI_SCHEME_CURVE_FITTING_SUPPORTED
+	if (!calibrated) {
+		ESP_LOGI(TAG, "calibration scheme version is %s", "Curve Fitting");
+		adc_cali_curve_fitting_config_t cali_config = {
+			.unit_id = unit,
+			.atten = atten,
+			.bitwidth = ADC_BITWIDTH_DEFAULT,
+		};
+		ret = adc_cali_create_scheme_curve_fitting(&cali_config, &handle);
+		if (ret == ESP_OK) {
+			calibrated = true;
+		}
+	}
+#endif
+
+#if ADC_CALI_SCHEME_LINE_FITTING_SUPPORTED
+	if (!calibrated) {
+		ESP_LOGI(TAG, "calibration scheme version is %s", "Line Fitting");
+		adc_cali_line_fitting_config_t cali_config = {
+			.unit_id = unit,
+			.atten = atten,
+			.bitwidth = ADC_BITWIDTH_DEFAULT,
+		};
+		ret = adc_cali_create_scheme_line_fitting(&cali_config, &handle);
+		if (ret == ESP_OK) {
+			calibrated = true;
+		}
+	}
+#endif
+
+	*out_handle = handle;
+	if (ret == ESP_OK) {
+		ESP_LOGI(TAG, "Calibration Success");
+	} else if (ret == ESP_ERR_NOT_SUPPORTED || !calibrated) {
+		ESP_LOGW(TAG, "eFuse not burnt, skip software calibration");
+	} else {
+		ESP_LOGE(TAG, "Invalid arg or no memory");
+	}
+
+	return calibrated;
+}
+
+#define NO_OF_SAMPLES 64 //Multisampling
 
 void app_main() {
 	//Initialize NVS
@@ -477,12 +488,9 @@ void app_main() {
 	configASSERT( xMessageBufferMain );
 
 	/* Get the local IP address */
-	//tcpip_adapter_ip_info_t ip_info;
-	//ESP_ERROR_CHECK(tcpip_adapter_get_ip_info(TCPIP_ADAPTER_IF_STA, &ip_info));
 	esp_netif_ip_info_t ip_info;
 	ESP_ERROR_CHECK(esp_netif_get_ip_info(esp_netif_get_handle_from_ifkey("WIFI_STA_DEF"), &ip_info));
 	char cparam0[64];
-	//sprintf(cparam0, "%s", ip4addr_ntoa(&ip_info.ip));
 	sprintf(cparam0, IPSTR, IP2STR(&ip_info.ip));
 
 	ws_server_start();
@@ -504,39 +512,48 @@ void app_main() {
 		while(1) { vTaskDelay(1); }
 	}
 
-
-	bool cali_enable = adc_calibration_init();
-	if (cali_enable == false) {
+	// ADC1 Calibration Init
+	adc_cali_handle_t adc1_cali_handle = NULL;
+	bool do_calibration = adc_calibration_init(ADC_UNIT_1, ADC_ATTEN_DB_11, &adc1_cali_handle);
+	if (do_calibration == false) {
 		ESP_LOGE(TAG, "calibration fail");
 		while(1) { vTaskDelay(1); }
 	}
 
-	//ADC1 config
-	ESP_LOGI(TAG, "CONFIG_METER1_GPIO=%d", CONFIG_METER1_GPIO);
-	adc1_channel_t adc1_channel1 = gpio2adc(CONFIG_METER1_GPIO);
-	ESP_LOGI(TAG, "adc1_channel1=%d", adc1_channel1);
-	ESP_ERROR_CHECK(adc1_config_width(ADC_WIDTH_BIT_DEFAULT));
-	ESP_ERROR_CHECK(adc1_config_channel_atten(adc1_channel1, ADC_EXAMPLE_ATTEN));
+	// ADC1 Init
+	adc_oneshot_unit_handle_t adc1_handle;
+	adc_oneshot_unit_init_cfg_t init_config1 = {
+		.unit_id = ADC_UNIT_1,
+	};
+	ESP_ERROR_CHECK(adc_oneshot_new_unit(&init_config1, &adc1_handle));
+
+	// ADC1 config
+	adc_oneshot_chan_cfg_t config = {
+		.bitwidth = ADC_BITWIDTH_DEFAULT,
+		.atten = ADC_ATTEN_DB_11,
+	};
+	adc_channel_t adc1_channel1 = gpio2adc(CONFIG_METER1_GPIO);
+	ESP_LOGI(TAG, "CONFIG_METER1_GPIO=%d adc1_channel1=%d", CONFIG_METER1_GPIO, adc1_channel1);
+	ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, adc1_channel1, &config));
+
 	char meter1[8];
 	sprintf(meter1, "GPIO%02d", CONFIG_METER1_GPIO);
-
 	char meter2[8];
 	memset(meter2, 0, sizeof(meter2));
+	char meter3[8];
+	memset(meter3, 0, sizeof(meter3));
+
 #if CONFIG_ENABLE_METER2
-	ESP_LOGI(TAG, "CONFIG_METER2_GPIO=%d", CONFIG_METER2_GPIO);
-	adc1_channel_t adc1_channel2 = gpio2adc(CONFIG_METER2_GPIO);
-	ESP_LOGI(TAG, "adc1_channel2=%d", adc1_channel2);
-	ESP_ERROR_CHECK(adc1_config_channel_atten(adc1_channel2, ADC_EXAMPLE_ATTEN));
+	adc_channel_t adc1_channel2 = gpio2adc(CONFIG_METER2_GPIO);
+	ESP_LOGI(TAG, "CONFIG_METER2_GPIO=%d adc1_channel2=%d", CONFIG_METER2_GPIO, adc1_channel2);
+	ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, adc1_channel2, &config));
 	sprintf(meter2, "GPIO%02d", CONFIG_METER2_GPIO);
 #endif
 
-	char meter3[8];
-	memset(meter3, 0, sizeof(meter3));
 #if CONFIG_ENABLE_METER3
-	ESP_LOGI(TAG, "CONFIG_METER3_GPIO=%d", CONFIG_METER3_GPIO);
-	adc1_channel_t adc1_channel3 = gpio2adc(CONFIG_METER3_GPIO);
-	ESP_LOGI(TAG, "adc1_channel3=%d", adc1_channel3);
-	ESP_ERROR_CHECK(adc1_config_channel_atten(adc1_channel3, ADC_EXAMPLE_ATTEN));
+	adc_channel_t adc1_channel3 = gpio2adc(CONFIG_METER3_GPIO);
+	ESP_LOGI(TAG, "CONFIG_METER3_GPIO=%d adc1_channel3=%d", CONFIG_METER3_GPIO, adc1_channel3);
+	ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, adc1_channel3, &config));
 	sprintf(meter3, "GPIO%02d", CONFIG_METER3_GPIO);
 #endif
 
@@ -550,7 +567,7 @@ void app_main() {
 		cJSON *root = cJSON_Parse(cRxBuffer);
 		if (cJSON_GetObjectItem(root, "id")) {
 			char *id = cJSON_GetObjectItem(root,"id")->valuestring;
-			ESP_LOGD(TAG, "id=%s",id);
+			ESP_LOGD(TAG, "id=[%s]",id);
 
 			if ( strcmp (id, "init") == 0) {
 				//sprintf(outBuffer,"HEAD%cADC Channel is %d", DEL, adc1_channel1);
@@ -561,61 +578,47 @@ void app_main() {
 				sprintf(outBuffer,"METER%c%s%c%s%c%s", DEL,meter1,DEL,meter2,DEL,meter3);
 				ESP_LOGD(TAG, "outBuffer=[%s]", outBuffer);
 				ws_server_send_text_all(outBuffer,strlen(outBuffer));
-			}
+			} // end if
 
 			if ( strcmp (id, "timer-request") == 0) {
-		
-#if 0
-				//Single sampling
+				int voltage1 = 0;
+				int32_t adc_reading1 = 0;
 				int adc_raw;
-				adc_raw = adc1_get_raw(adc1_channel1);
-				if (cali_enable) {
-					uint32_t voltage = esp_adc_cal_raw_to_voltage(adc_raw, &adc1_chars);
-					ESP_LOGI(TAG, "adc1_channel1: %d Raw: %d Voltage: %dmV", adc1_channel1, adc_raw, voltage);
-					sprintf(outBuffer,"DATA%c%d", DEL, voltage);
-					ESP_LOGD(TAG, "outBuffer=[%s]", outBuffer);
-					ws_server_send_text_all(outBuffer,strlen(outBuffer));
-				} else {
-					ESP_LOGW(TAG, "calibration fail");
-				}
-
-#endif
-
-				//Multi sampling
-				uint32_t adc_reading1 = 0;
-				uint32_t voltage1 = 0;
 				for (int i = 0; i < NO_OF_SAMPLES; i++) {
-					adc_reading1 += adc1_get_raw(adc1_channel1);
+					ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, adc1_channel1, &adc_raw));
+					adc_reading1 += adc_raw;
 				}
 				adc_reading1 /= NO_OF_SAMPLES;
-				voltage1 = esp_adc_cal_raw_to_voltage(adc_reading1, &adc1_chars);
+				ESP_ERROR_CHECK(adc_cali_raw_to_voltage(adc1_cali_handle, adc_reading1, &voltage1));
 #if CONFIG_ENABLE_STDOUT
-				ESP_LOGI(TAG, "GPIO%02d adc1_channel1: %d Raw: %d Voltage: %dmV", CONFIG_METER1_GPIO, adc1_channel1, adc_reading1, voltage1);
+				ESP_LOGI(TAG, "GPIO%02d adc1_channel1: %d Raw: %"PRIi32" Voltage: %dmV", CONFIG_METER1_GPIO, adc1_channel1, adc_reading1, voltage1);
 #endif
 
-				uint32_t voltage2 = 0;
+				int voltage2 = 0;
 #if CONFIG_ENABLE_METER2
-				uint32_t adc_reading2 = 0;
+				int32_t adc_reading2 = 0;
 				for (int i = 0; i < NO_OF_SAMPLES; i++) {
-					adc_reading2 += adc1_get_raw(adc1_channel2);
+					ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, adc1_channel2, &adc_raw));
+					adc_reading2 += adc_raw;
 				}
 				adc_reading2 /= NO_OF_SAMPLES;
-				voltage2 = esp_adc_cal_raw_to_voltage(adc_reading2, &adc1_chars);
+				ESP_ERROR_CHECK(adc_cali_raw_to_voltage(adc1_cali_handle, adc_reading2, &voltage2));
 #if CONFIG_ENABLE_STDOUT
-				ESP_LOGI(TAG, "GPIO%02d adc1_channel2: %d Raw: %d Voltage: %dmV", CONFIG_METER2_GPIO, adc1_channel2, adc_reading2, voltage2);
+				ESP_LOGI(TAG, "GPIO%02d adc1_channel2: %d Raw: %"PRIi32" Voltage: %dmV", CONFIG_METER2_GPIO, adc1_channel2, adc_reading2, voltage2);
 #endif
 #endif // CONFIG_ENABLE_METER2
 
-				uint32_t voltage3 = 0;
+				int voltage3 = 0;
 #if CONFIG_ENABLE_METER3
-				uint32_t adc_reading3 = 0;
+				int32_t adc_reading3 = 0;
 				for (int i = 0; i < NO_OF_SAMPLES; i++) {
-					adc_reading3 += adc1_get_raw(adc1_channel3);
+					ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, adc1_channel3, &adc_raw));
+					adc_reading3 += adc_raw;
 				}
 				adc_reading3 /= NO_OF_SAMPLES;
-				voltage3 = esp_adc_cal_raw_to_voltage(adc_reading3, &adc1_chars);
+				ESP_ERROR_CHECK(adc_cali_raw_to_voltage(adc1_cali_handle, adc_reading3, &voltage3));
 #if CONFIG_ENABLE_STDOUT
-				ESP_LOGI(TAG, "GPIO%02d adc1_channel3: %d Raw: %d Voltage: %dmV", CONFIG_METER3_GPIO, adc1_channel3, adc_reading3, voltage3);
+				ESP_LOGI(TAG, "GPIO%02d adc1_channel3: %d Raw: %"PRIi32" Voltage: %dmV", CONFIG_METER3_GPIO, adc1_channel3, adc_reading3, voltage3);
 #endif
 #endif // CONFIG_ENABLE_METER3
 
@@ -625,13 +628,12 @@ void app_main() {
 
 				ESP_LOGD(TAG,"free_size:%d %d", heap_caps_get_free_size(MALLOC_CAP_8BIT), heap_caps_get_free_size(MALLOC_CAP_32BIT));
 
-
 			} // end if
+
 		} // end if
 
 		// Delete a cJSON structure
 		cJSON_Delete(root);
 
-	
 	} // end while
 }
