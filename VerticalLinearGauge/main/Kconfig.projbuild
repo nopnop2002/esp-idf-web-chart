@@ -31,18 +31,20 @@ menu "Application configuration"
 	menu "ADC Setting"
 
 		config GPIO_RANGE_MIN
-				int
-				default 32 if IDF_TARGET_ESP32
-				default  1 if IDF_TARGET_ESP32S2
-				default  1 if IDF_TARGET_ESP32S3
-				default  0 if IDF_TARGET_ESP32C3
+			int
+			default 32 if IDF_TARGET_ESP32
+			default  1 if IDF_TARGET_ESP32S2
+			default  1 if IDF_TARGET_ESP32S3
+			default  0 if IDF_TARGET_ESP32C2
+			default  0 if IDF_TARGET_ESP32C3
 
 		config GPIO_RANGE_MAX
-				int
-				default 39 if IDF_TARGET_ESP32
-				default 10 if IDF_TARGET_ESP32S2
-				default 10 if IDF_TARGET_ESP32S3
-				default  4 if IDF_TARGET_ESP32C3
+			int
+			default 39 if IDF_TARGET_ESP32
+			default 10 if IDF_TARGET_ESP32S2
+			default 10 if IDF_TARGET_ESP32S3
+			default  4 if IDF_TARGET_ESP32C2
+			default  4 if IDF_TARGET_ESP32C3
 
 		config METER1_GPIO
 			int "GPIO for ADC1"
@@ -50,6 +52,7 @@ menu "Application configuration"
 			default 32 if IDF_TARGET_ESP32
 			default  1 if IDF_TARGET_ESP32S2
 			default  1 if IDF_TARGET_ESP32S3
+			default  0 if IDF_TARGET_ESP32C2
 			default  0 if IDF_TARGET_ESP32C3
 			help
 				ADC1_CHANNEL number.
@@ -57,6 +60,7 @@ menu "Application configuration"
 				On the ESP32, 8 channels: GPIO32 - GPIO39.
 				On the ESP32-S2, 10 channels: GPIO1 - GPIO10.
 				On the ESP32-S3, 10 channels: GPIO1 - GPIO10.
+				On the ESP32-C2, 5 channels: GPIO0 - GPIO4.
 				On the ESP32-C3, 5 channels: GPIO0 - GPIO4.
 
 		config ENABLE_METER2
@@ -72,6 +76,7 @@ menu "Application configuration"
 			default 33 if IDF_TARGET_ESP32
 			default  2 if IDF_TARGET_ESP32S2
 			default  2 if IDF_TARGET_ESP32S3
+			default  1 if IDF_TARGET_ESP32C2
 			default  1 if IDF_TARGET_ESP32C3
 			help
 				ADC1_CHANNEL number.
@@ -79,6 +84,7 @@ menu "Application configuration"
 				On the ESP32, 8 channels: GPIO32 - GPIO39.
 				On the ESP32-S2, 10 channels: GPIO1 - GPIO10.
 				On the ESP32-S3, 10 channels: GPIO1 - GPIO10.
+				On the ESP32-C2, 5 channels: GPIO0 - GPIO4.
 				On the ESP32-C3, 5 channels: GPIO0 - GPIO4.
 
 		config ENABLE_METER3
@@ -94,6 +100,7 @@ menu "Application configuration"
 			default 34 if IDF_TARGET_ESP32
 			default  3 if IDF_TARGET_ESP32S2
 			default  3 if IDF_TARGET_ESP32S3
+			default  2 if IDF_TARGET_ESP32C2
 			default  2 if IDF_TARGET_ESP32C3
 			help
 				ADC1_CHANNEL number.
@@ -101,6 +108,7 @@ menu "Application configuration"
 				On the ESP32, 8 channels: GPIO32 - GPIO39.
 				On the ESP32-S2, 10 channels: GPIO1 - GPIO10.
 				On the ESP32-S3, 10 channels: GPIO1 - GPIO10.
+				On the ESP32-C2, 5 channels: GPIO0 - GPIO4.
 				On the ESP32-C3, 5 channels: GPIO0 - GPIO4.
 	
 		config ADC_CYCLE
