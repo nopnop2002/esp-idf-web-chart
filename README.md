@@ -23,18 +23,25 @@ But the range that can be measured accurately is as follows:
 - Measurable input voltage range for ESP32S2 is 0 mV ~ 2500 mV.   
 - Measurable input voltage range for ESP32S3 is 0 mV ~ 3100 mV.   
 - Measurable input voltage range for ESP32C3 is 0 mV ~ 2500 mV.   
+- Measurable input voltage range for ESP32C2 is 0 mV ~ 2800 mV.   
 
 
 # Software requirements
-esp-idf v4.4.   
-This is because this version supports ESP32-C3.   
+ESP-IDF V4.4/V5.0/V5.1.   
+ESP-IDF V5 is required when using ESP32-C2.
 
-
-# Installation
 I used [this](https://github.com/Molorius/esp32-websocket) component.   
 This component can communicate directly with the browser.   
 It's a great job.   
 
+# Installation for ESP-IDF V4.4
+```
+git clone -b v4.4 https://github.com/nopnop2002/esp-idf-web-analog
+cd esp-idf-web-analog/RadialGauge/
+git clone https://github.com/Molorius/esp32-websocket components/websocket
+```
+
+# Installation for ESP-IDF V5.0/5.1
 ```
 git clone https://github.com/nopnop2002/esp-idf-web-analog
 cd esp-idf-web-analog/RadialGauge/
@@ -43,7 +50,7 @@ git clone https://github.com/Molorius/esp32-websocket components/websocket
 
 # Configuration
 ```
-idf.py set-target {esp32/esp32s2/esp32s3/esp32c3}
+idf.py set-target {esp32/esp32s2/esp32s3/esp32c2/esp32c3}
 idf.py menuconfig
 idf.py flash monitor
 ```
@@ -68,6 +75,7 @@ It is possible to monitor 3 channels at the same time.
 Analog input gpio for ESP32 is GPIO32 ~ GPIO39. 12Bits width.   
 Analog input gpio for ESP32S2 is GPIO01 ~ GPIO10. 13Bits width.   
 Analog input gpio for ESP32S3 is GPIO01 ~ GPIO10. 12Bits width.   
+Analog input gpio for ESP32C2 is GPIO00 ~ GPIO04. 12Bits width.   
 Analog input gpio for ESP32C3 is GPIO00 ~ GPIO04. 12Bits width.   
 
 # Analog source
