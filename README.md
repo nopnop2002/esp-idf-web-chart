@@ -49,7 +49,7 @@ git clone https://github.com/Molorius/esp32-websocket components/websocket
 ```
 
 __Note for ESP-IDF V5.0__   
-ESP-IDF V5 ADC driver has a bug and does not define GPIO lookup macros like ADC1_GPIO32_CHANNEL.   
+ESP-IDF V5.0 ADC driver has a bug and does not define GPIO lookup macros like ADC1_GPIO32_CHANNEL.   
 Therefore, when using ESP-IDF V5.0, it is necessary to include the legacy driver.   
 This bug has been resolved in ESP-IDF V5.1.   
 
