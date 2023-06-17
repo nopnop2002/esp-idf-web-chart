@@ -28,7 +28,7 @@ But the range that can be measured accurately is as follows:
 
 # Software requirements
 ESP-IDF V4.4/V5.0/V5.1.   
-ESP-IDF V5 is required when using ESP32-C2.
+ESP-IDF V5.0 is required when using ESP32-C2.
 
 I used [this](https://github.com/Molorius/esp32-websocket) component.   
 This component can communicate directly with the browser.   
