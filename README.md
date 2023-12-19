@@ -1,7 +1,7 @@
 # esp-idf-web-analog
 This is a demonstration of __real-time data visualization__ using a web browser.   
 The purpose of this project is to demonstrate how to use components that enable real-time data visualization.   
-Use the ADC value as the data to display.   
+Although it use as data to display ADC converted values, it can also be applied to data from sensors such as thermometers and hygrometers.   
 
 The ESP32 has two ADCs: ADC1 and ADC2.   
 You can use these to convert analog values to digital values.   
