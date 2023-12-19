@@ -27,7 +27,7 @@ ESP-IDF V5.0 is required when using ESP32-C2.
 git clone -b v4.4 https://github.com/nopnop2002/esp-idf-web-analog
 cd esp-idf-web-analog/RadialGauge/
 git clone https://github.com/Molorius/esp32-websocket components/websocket
-idf.py set-target {esp32/esp32s2/esp32s3/esp32c2/esp32c3}
+idf.py set-target {esp32/esp32s2/esp32s3/esp32c3}
 idf.py menuconfig
 idf.py flash monitor
 ```
