@@ -1,11 +1,11 @@
 # esp-idf-web-analog
-This project is a demonstration of __real-time visualization of data__ via a web browser.   
-The purpose of this project is to introduce a library that can __visualize data in real time__.   
+This is a demonstration of __real-time data visualization__ using a web browser.   
+The purpose of this project is to use a library with ESP-IDF that allows data visualization in real time.   
 Use the ADC value as the data to display.   
-   
-ESP32 has two ADCs, ADC1 and ADC2.   
+
+The ESP32 has two ADCs: ADC1 and ADC2.   
+You can use these to convert analog values to digital values.   
 This project uses ADC1.   
-You can use ADC1 to convert analog values to digital values.   
 The analog values change dynamically and are suitable for this demonstration.
 
 ![web-meter](https://user-images.githubusercontent.com/6020549/164379601-68aaf0e3-f50c-4776-8de1-216ce94d63df.jpg)
@@ -15,30 +15,21 @@ The analog values change dynamically and are suitable for this demonstration.
 ![Plotly](https://user-images.githubusercontent.com/6020549/164872660-be85b191-c0ed-4f06-b04c-1ba6c020d6d7.jpg)
 ![Epoch](https://user-images.githubusercontent.com/6020549/164948839-9a6997b3-6c40-441c-841e-be1a32b36890.jpg)
 
-# ADC Attenuation   
-This project uses ADC_ATTEN_DB_11(11dB) for attenuation.   
-11dB attenuation (ADC_ATTEN_DB_11) gives full-scale voltage 3.9V.   
-But the range that can be measured accurately is as follows:   
-- Measurable input voltage range for ESP32 is 150 mV ~ 2450 mV.   
-- Measurable input voltage range for ESP32S2 is 0 mV ~ 2500 mV.   
-- Measurable input voltage range for ESP32S3 is 0 mV ~ 3100 mV.   
-- Measurable input voltage range for ESP32C3 is 0 mV ~ 2500 mV.   
-- Measurable input voltage range for ESP32C2 is 0 mV ~ 2800 mV.   
-
+I used [this](https://github.com/Molorius/esp32-websocket) component.   
+This component can communicate directly with the browser.   
 
 # Software requirements
 ESP-IDF V4.4/V5.0/V5.1.   
 ESP-IDF V5.0 is required when using ESP32-C2.
-
-I used [this](https://github.com/Molorius/esp32-websocket) component.   
-This component can communicate directly with the browser.   
-It's a great job.   
 
 # Installation for ESP-IDF V4.4
 ```
 git clone -b v4.4 https://github.com/nopnop2002/esp-idf-web-analog
 cd esp-idf-web-analog/RadialGauge/
 git clone https://github.com/Molorius/esp32-websocket components/websocket
+idf.py set-target {esp32/esp32s2/esp32s3/esp32c2/esp32c3}
+idf.py menuconfig
+idf.py flash monitor
 ```
 
 # Installation for ESP-IDF V5.0/5.1
@@ -46,6 +37,9 @@ git clone https://github.com/Molorius/esp32-websocket components/websocket
 git clone https://github.com/nopnop2002/esp-idf-web-analog
 cd esp-idf-web-analog/RadialGauge/
 git clone https://github.com/Molorius/esp32-websocket components/websocket
+idf.py set-target {esp32/esp32s2/esp32s3/esp32c2/esp32c3}
+idf.py menuconfig
+idf.py flash monitor
 ```
 
 __Note for ESP-IDF V5.0__   
@@ -54,11 +48,6 @@ Therefore, when using ESP-IDF V5.0, it is necessary to include the legacy driver
 This bug has been resolved in ESP-IDF V5.1.   
 
 # Configuration
-```
-idf.py set-target {esp32/esp32s2/esp32s3/esp32c2/esp32c3}
-idf.py menuconfig
-idf.py flash monitor
-```
 ![config-top](https://user-images.githubusercontent.com/6020549/164379960-58350b2d-17d4-48b5-84d1-615ff037242a.jpg)
 ![config-app](https://user-images.githubusercontent.com/6020549/164379982-149e4044-7889-4755-813e-0185fd082c9b.jpg)
 
@@ -82,6 +71,17 @@ Analog input gpio for ESP32S2 is GPIO01 ~ GPIO10. 13Bits width.
 Analog input gpio for ESP32S3 is GPIO01 ~ GPIO10. 12Bits width.   
 Analog input gpio for ESP32C2 is GPIO00 ~ GPIO04. 12Bits width.   
 Analog input gpio for ESP32C3 is GPIO00 ~ GPIO04. 12Bits width.   
+
+# ADC Attenuation   
+This project uses ADC_ATTEN_DB_11(11dB) for attenuation.   
+11dB attenuation (ADC_ATTEN_DB_11) gives full-scale voltage 3.9V.   
+But the range that can be measured accurately is as follows:   
+- Measurable input voltage range for ESP32 is 150 mV ~ 2450 mV.   
+- Measurable input voltage range for ESP32S2 is 0 mV ~ 2500 mV.   
+- Measurable input voltage range for ESP32S3 is 0 mV ~ 3100 mV.   
+- Measurable input voltage range for ESP32C3 is 0 mV ~ 2500 mV.   
+- Measurable input voltage range for ESP32C2 is 0 mV ~ 2800 mV.   
+
 
 # Analog source
 Connect ESP32 and Analog source using wire cable.   
