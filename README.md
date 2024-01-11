@@ -1,4 +1,4 @@
-# esp-idf-web-analog
+# esp-idf-web-chart
 This is a demonstration of __real-time data visualization__ using a web browser.   
 The purpose of this project is to demonstrate how to use components that enable real-time data visualization.   
 Although it use as data to display ADC converted values, it can also be applied to data from sensors such as thermometers and hygrometers.   
@@ -24,8 +24,8 @@ ESP-IDF V5.0 is required when using ESP32-C2.
 
 # Installation for ESP-IDF V4.4
 ```
-git clone -b v4.4 https://github.com/nopnop2002/esp-idf-web-analog
-cd esp-idf-web-analog/RadialGauge/
+git clone -b v4.4 https://github.com/nopnop2002/esp-idf-web-chart
+cd esp-idf-web-chart/RadialGauge/
 git clone https://github.com/Molorius/esp32-websocket components/websocket
 idf.py set-target {esp32/esp32s2/esp32s3/esp32c3}
 idf.py menuconfig
@@ -34,8 +34,8 @@ idf.py flash monitor
 
 # Installation for ESP-IDF V5.0/5.1
 ```
-git clone https://github.com/nopnop2002/esp-idf-web-analog
-cd esp-idf-web-analog/RadialGauge/
+git clone https://github.com/nopnop2002/esp-idf-web-chart
+cd esp-idf-web-chart/RadialGauge/
 git clone https://github.com/Molorius/esp32-websocket components/websocket
 idf.py set-target {esp32/esp32s2/esp32s3/esp32c2/esp32c3}
 idf.py menuconfig
