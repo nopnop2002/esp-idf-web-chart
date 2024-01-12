@@ -20,9 +20,6 @@
 static const char *TAG = "web_client";
 
 #include "soc/adc_channel.h"
-#if ESP_IDF_VERSION_MAJOR == 5 && ESP_IDF_VERSION_MINOR == 0
-#include "driver/adc.h" //  Need legacy adc driver for ADC1_GPIOxx_CHANNEL
-#endif
 #include "esp_adc/adc_cali.h"
 #include "esp_adc/adc_cali_scheme.h"
 #include "esp_adc/adc_oneshot.h"
@@ -155,7 +152,7 @@ void client_task(void* pvParameters) {
 
 	// ADC1 Calibration Init
 	adc_cali_handle_t adc1_cali_handle = NULL;
-	bool do_calibration = adc_calibration_init(ADC_UNIT_1, ADC_ATTEN_DB_11, &adc1_cali_handle);
+	bool do_calibration = adc_calibration_init(ADC_UNIT_1, ADC_ATTEN_DB_12, &adc1_cali_handle);
 	if (do_calibration == false) {
 		ESP_LOGE(TAG, "calibration fail");
 		vTaskDelete(NULL);
@@ -171,7 +168,7 @@ void client_task(void* pvParameters) {
 	// ADC1 config
 	adc_oneshot_chan_cfg_t config = {
 		.bitwidth = ADC_BITWIDTH_DEFAULT,
-		.atten = ADC_ATTEN_DB_11,
+		.atten = ADC_ATTEN_DB_12,
 	};
 	adc_channel_t adc1_channel1 = gpio2adc(CONFIG_METER1_GPIO);
 	ESP_LOGI(TAG, "CONFIG_METER1_GPIO=%d adc1_channel1=%d", CONFIG_METER1_GPIO, adc1_channel1);

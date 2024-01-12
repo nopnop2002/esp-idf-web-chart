@@ -1,5 +1,23 @@
 menu "Application configuration"
 
+	config GPIO_RANGE_MIN
+		int
+		default 32 if IDF_TARGET_ESP32
+		default  1 if IDF_TARGET_ESP32S2 
+		default  1 if IDF_TARGET_ESP32S3
+		default  0 if IDF_TARGET_ESP32C2
+		default  0 if IDF_TARGET_ESP32C3
+		default  0 if IDF_TARGET_ESP32C6
+
+	config GPIO_RANGE_MAX
+		int
+		default 39 if IDF_TARGET_ESP32
+		default 10 if IDF_TARGET_ESP32S2
+		default 10 if IDF_TARGET_ESP32S3
+		default  4 if IDF_TARGET_ESP32C2
+		default  4 if IDF_TARGET_ESP32C3
+		default  6 if IDF_TARGET_ESP32C6
+
 	menu "WiFi Setting"
 
 		config ESP_WIFI_SSID
@@ -30,30 +48,12 @@ menu "Application configuration"
 
 	menu "ADC Setting"
 
-		config GPIO_RANGE_MIN
-			int
-			default 32 if IDF_TARGET_ESP32
-			default  1 if IDF_TARGET_ESP32S2
-			default  1 if IDF_TARGET_ESP32S3
-			default  0 if IDF_TARGET_ESP32C2
-			default  0 if IDF_TARGET_ESP32C3
-
-		config GPIO_RANGE_MAX
-			int
-			default 39 if IDF_TARGET_ESP32
-			default 10 if IDF_TARGET_ESP32S2
-			default 10 if IDF_TARGET_ESP32S3
-			default  4 if IDF_TARGET_ESP32C2
-			default  4 if IDF_TARGET_ESP32C3
-
 		config METER1_GPIO
 			int "GPIO for ADC1"
 			range GPIO_RANGE_MIN GPIO_RANGE_MAX
 			default 32 if IDF_TARGET_ESP32
-			default  1 if IDF_TARGET_ESP32S2
-			default  1 if IDF_TARGET_ESP32S3
-			default  0 if IDF_TARGET_ESP32C2
-			default  0 if IDF_TARGET_ESP32C3
+			default  1 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+			default  0 # C3 and others
 			help
 				ADC1_CHANNEL number.
 				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to ADC.
@@ -74,10 +74,8 @@ menu "Application configuration"
 			int "GPIO for METER2"
 			range GPIO_RANGE_MIN GPIO_RANGE_MAX
 			default 33 if IDF_TARGET_ESP32
-			default  2 if IDF_TARGET_ESP32S2
-			default  2 if IDF_TARGET_ESP32S3
-			default  1 if IDF_TARGET_ESP32C2
-			default  1 if IDF_TARGET_ESP32C3
+			default  2 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+			default  1 # C3 and others
 			help
 				ADC1_CHANNEL number.
 				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to ADC.
@@ -86,6 +84,7 @@ menu "Application configuration"
 				On the ESP32-S3, 10 channels: GPIO1 - GPIO10.
 				On the ESP32-C2, 5 channels: GPIO0 - GPIO4.
 				On the ESP32-C3, 5 channels: GPIO0 - GPIO4.
+				On the ESP32-C6, 7 channels: GPIO0 - GPIO6.
 
 		config ENABLE_METER3
 			bool "Enable METER3"
@@ -98,10 +97,8 @@ menu "Application configuration"
 			int "GPIO for METER3"
 			range GPIO_RANGE_MIN GPIO_RANGE_MAX
 			default 34 if IDF_TARGET_ESP32
-			default  3 if IDF_TARGET_ESP32S2
-			default  3 if IDF_TARGET_ESP32S3
-			default  2 if IDF_TARGET_ESP32C2
-			default  2 if IDF_TARGET_ESP32C3
+			default  3 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+			default  2 # C3 and others
 			help
 				ADC1_CHANNEL number.
 				Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to ADC.
@@ -110,6 +107,7 @@ menu "Application configuration"
 				On the ESP32-S3, 10 channels: GPIO1 - GPIO10.
 				On the ESP32-C2, 5 channels: GPIO0 - GPIO4.
 				On the ESP32-C3, 5 channels: GPIO0 - GPIO4.
+				On the ESP32-C6, 7 channels: GPIO0 - GPIO6.
 	
 		config ADC_CYCLE
 			int "ADC measurement cycle tick"
