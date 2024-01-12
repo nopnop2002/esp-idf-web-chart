@@ -79,6 +79,15 @@ adc_channel_t gpio2adc(int gpio) {
 	if (gpio == 3) return ADC1_GPIO3_CHANNEL;
 	if (gpio == 4) return ADC1_GPIO4_CHANNEL;
 
+#elif CONFIG_IDF_TARGET_ESP32C6
+	if (gpio == 0) return ADC1_GPIO0_CHANNEL;
+	if (gpio == 1) return ADC1_GPIO1_CHANNEL;
+	if (gpio == 2) return ADC1_GPIO2_CHANNEL;
+	if (gpio == 3) return ADC1_GPIO3_CHANNEL;
+	if (gpio == 4) return ADC1_GPIO4_CHANNEL;
+	if (gpio == 5) return ADC1_GPIO5_CHANNEL;
+	if (gpio == 6) return ADC1_GPIO6_CHANNEL;
+
 #endif
 	return -1;
 }
@@ -135,20 +144,20 @@ static bool adc_calibration_init(adc_unit_t unit, adc_atten_t atten, adc_cali_ha
 
 
 void client_task(void* pvParameters) {
-    // Create Timer (Trigger a measurement every second)
-    ESP_LOGI(TAG, "CONFIG_ADC_CYCLE=%d", CONFIG_ADC_CYCLE);
-    TimerHandle_t timerHandle = xTimerCreate("MY Trigger", CONFIG_ADC_CYCLE, pdTRUE, NULL, timer_cb);
-    if (timerHandle != NULL) {
-        if (xTimerStart(timerHandle, 0) != pdPASS) {
-            ESP_LOGE(TAG, "Unable to start Timer");
+	// Create Timer (Trigger a measurement every second)
+	ESP_LOGI(TAG, "CONFIG_ADC_CYCLE=%d", CONFIG_ADC_CYCLE);
+	TimerHandle_t timerHandle = xTimerCreate("MY Trigger", CONFIG_ADC_CYCLE, pdTRUE, NULL, timer_cb);
+	if (timerHandle != NULL) {
+		if (xTimerStart(timerHandle, 0) != pdPASS) {
+			ESP_LOGE(TAG, "Unable to start Timer");
 			vTaskDelete(NULL);
-        } else {
-            ESP_LOGI(TAG, "Success to start Timer");
-        }
-    } else {
-        ESP_LOGE(TAG, "Unable to create Timer");
+		} else {
+			ESP_LOGI(TAG, "Success to start Timer");
+		}
+	} else {
+		ESP_LOGE(TAG, "Unable to create Timer");
 		vTaskDelete(NULL);
-    }
+	}
 
 	// ADC1 Calibration Init
 	adc_cali_handle_t adc1_cali_handle = NULL;
