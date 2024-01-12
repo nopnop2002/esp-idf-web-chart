@@ -21,6 +21,7 @@ This component can communicate directly with the browser.
 # Software requirements
 ESP-IDF V4.4/V5.x.   
 ESP-IDF V5.0 is required when using ESP32-C2.
+ESP-IDF V5.1 is required when using ESP32-C6.
 
 # Installation for ESP-IDF V4.4
 ```
@@ -37,7 +38,7 @@ idf.py flash monitor
 git clone https://github.com/nopnop2002/esp-idf-web-chart
 cd esp-idf-web-chart/RadialGauge/
 git clone https://github.com/Molorius/esp32-websocket components/websocket
-idf.py set-target {esp32/esp32s2/esp32s3/esp32c2/esp32c3}
+idf.py set-target {esp32/esp32s2/esp32s3/esp32c2/esp32c3/esp32c6}
 idf.py menuconfig
 idf.py flash monitor
 ```
@@ -66,10 +67,11 @@ Analog input gpio for ESP32S2 is GPIO01 ~ GPIO10. 13Bits width.
 Analog input gpio for ESP32S3 is GPIO01 ~ GPIO10. 12Bits width.   
 Analog input gpio for ESP32C2 is GPIO00 ~ GPIO04. 12Bits width.   
 Analog input gpio for ESP32C3 is GPIO00 ~ GPIO04. 12Bits width.   
+Analog input gpio for ESP32C6 is GPIO00 ~ GPIO06. 12Bits width.   
 
 # ADC Attenuation   
-This project uses ADC_ATTEN_DB_11(11dB) for attenuation.   
-11dB attenuation (ADC_ATTEN_DB_11) gives full-scale voltage 3.9V.   
+This project uses ADC_ATTEN_DB_12(12dB) for attenuation.   
+12dB attenuation (ADC_ATTEN_DB_12) gives full-scale voltage 3.9V.   
 But the range that can be measured accurately is as follows:   
 - Measurable input voltage range for ESP32 is 150 mV ~ 2450 mV.   
 - Measurable input voltage range for ESP32S2 is 0 mV ~ 2500 mV.   
