@@ -42,11 +42,6 @@ idf.py menuconfig
 idf.py flash monitor
 ```
 
-__Note for ESP-IDF V5.0__   
-ESP-IDF V5.0 ADC driver has a bug and does not define GPIO lookup macros like ADC1_GPIO32_CHANNEL.   
-Therefore, when using ESP-IDF V5.0, it is necessary to include the legacy driver.   
-This bug has been resolved in ESP-IDF V5.1.   
-
 # Configuration
 ![config-top](https://user-images.githubusercontent.com/6020549/164379960-58350b2d-17d4-48b5-84d1-615ff037242a.jpg)
 ![config-app](https://user-images.githubusercontent.com/6020549/164379982-149e4044-7889-4755-813e-0185fd082c9b.jpg)
