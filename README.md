@@ -105,22 +105,6 @@ or
 http://esp32-server.local/
 ```
 
-# Using mDNS hostname
-You can connect using the mDNS hostname instead of the IP address.   
-- esp-idf V4.4  
- If you set CONFIG_MDNS_STRICT_MODE = y in sdkconfig.defaults, the firmware will be built with MDNS_STRICT_MODE.   
- __If MDNS_STRICT_MODE is not set, mDNS name resolution will not be possible after long-term operation.__   
-- esp-idf V4.4.1   
- mDNS component has been updated.   
- If you set CONFIG_MDNS_STRICT_MODE = y in sdkconfig.defaults, the firmware will be built with MDNS_STRICT_MODE.   
- __Even if MDNS_STRICT_MODE is set, mDNS name resolution will not be possible after long-term operation.__   
-- esp-idf V5.0 or later   
- mDNS component has been updated.   
- Long-term operation is possible without setting MDNS_STRICT_MODE.   
- The following lines in sdkconfig.defaults should be removed before menuconfig.   
- ```CONFIG_MDNS_STRICT_MODE=y```
-
-
 # WEB Pages
 WEB pages are stored in the html folder.   
 You can change it as you like.   
