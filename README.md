@@ -19,21 +19,11 @@ I used [this](https://github.com/Molorius/esp32-websocket) component.
 This component can communicate directly with the browser.   
 
 # Software requirements
-ESP-IDF V4.4/V5.x.   
-ESP-IDF V5.0 is required when using ESP32-C2.
-ESP-IDF V5.1 is required when using ESP32-C6.
+ESP-IDF V5.0 or later.   
+ESP-IDF V4.4 release branch reached EOL in July 2024.   
+ESP-IDF V5.1 is required when using ESP32-C6.   
 
-# Installation for ESP-IDF V4.4
-```
-git clone -b v4.4 https://github.com/nopnop2002/esp-idf-web-chart
-cd esp-idf-web-chart/RadialGauge/
-git clone https://github.com/Molorius/esp32-websocket components/websocket
-idf.py set-target {esp32/esp32s2/esp32s3/esp32c3}
-idf.py menuconfig
-idf.py flash monitor
-```
-
-# Installation for ESP-IDF V5.x
+# Installation
 ```
 git clone https://github.com/nopnop2002/esp-idf-web-chart
 cd esp-idf-web-chart/RadialGauge/
