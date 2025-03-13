@@ -105,6 +105,10 @@ or
 http://esp32-server.local/
 ```
 
+# How to display your sensor data
+Modify [this](https://github.com/nopnop2002/esp-idf-web-chart/blob/main/RadialGauge/main/web_client.c#L231) block to read data from your sensor.   
+The ```timer-request``` is notified by the timer every second.   
+
 # WEB Pages
 WEB pages are stored in the html folder.   
 You can change it as you like.   
