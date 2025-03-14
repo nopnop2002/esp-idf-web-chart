@@ -108,6 +108,13 @@ http://esp32-server.local/
 # How to display your sensor data
 Modify [this](https://github.com/nopnop2002/esp-idf-web-chart/blob/main/RadialGauge/main/web_client.c#L231) block to read data from your sensor.   
 The ```timer-request``` is notified by the timer every second.   
+```
+if ( strcmp (id, "timer-request") == 0) {
+	// read from sensor data to voltage1, voltage2, voltage3
+	sprintf(outBuffer,"DATA%c%d%c%d%c%d", DEL, voltage1, DEL, voltage2, DEL, voltage3);
+	ws_server_send_text_all(outBuffer,strlen(outBuffer));
+} // end if
+```
 
 # WEB Pages
 WEB pages are stored in the html folder.   
