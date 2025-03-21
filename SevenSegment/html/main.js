@@ -7,6 +7,10 @@ var meter3 = 0;
 var segment1 = new SevenSegmentDisplay("canvas1");
 var segment2 = new SevenSegmentDisplay("canvas2");
 var segment3 = new SevenSegmentDisplay("canvas3");
+var gpio1 = "";
+var gpio2 = "";
+var gpio3 = "";
+var uint = 1;
 
 function sendText(name) {
 	console.log('sendText');
@@ -68,44 +72,58 @@ websocket.onmessage = function(evt) {
 				document.getElementById("label1").style.display = "none";
 				document.getElementById("canvas1").style.display = "none";
 			} else {
-				document.getElementById("label1").style.display = "inline-block";
-				document.getElementById("label1").innerText = values[1] + " [mV]";
-				document.getElementById("canvas1").style.display = "inline-block";
 				meter1 = 1;
+				gpio1 = values[1];
+				document.getElementById("label1").style.display = "inline-block";
+				document.getElementById("label1").innerText = gpio1 + " [mV]";
+				document.getElementById("canvas1").style.display = "inline-block";
 			}
 			if (values[2] == "") {
 				document.getElementById("label2").style.display = "none";
 				document.getElementById("canvas2").style.display = "none";
 			} else {
-				document.getElementById("label2").style.display = "inline-block";
-				document.getElementById("label2").innerText = values[2] + " [mV]";
-				document.getElementById("canvas2").style.display = "inline-block";
 				meter2 = 1;
+				gpio2 = values[2];
+				document.getElementById("label2").style.display = "inline-block";
+				document.getElementById("label2").innerText = gpio2 + " [mV]";
+				document.getElementById("canvas2").style.display = "inline-block";
 			}
 			if (values[3] == "") {
 				document.getElementById("label3").style.display = "none";
 				document.getElementById("canvas3").style.display = "none";
 			} else {
-				document.getElementById("label3").style.display = "inline-block";
-				document.getElementById("label3").innerText = values[3] + " [mV]";
-				document.getElementById("canvas3").style.display = "inline-block";
 				meter3 = 1;
+				gpio3 = values[3];
+				document.getElementById("label3").style.display = "inline-block";
+				document.getElementById("label3").innerText = gpio3 + " [mV]";
+				document.getElementById("canvas3").style.display = "inline-block";
 			}
+			break;
+
+		case 'UNIT':
+			console.log("UNIT");
+			uint = 1000;
+    		segment1.NumberOfDecimalPlaces = 3;
+    		segment2.NumberOfDecimalPlaces = 3;
+    		segment3.NumberOfDecimalPlaces = 3;
+			document.getElementById("label1").innerText = gpio1 + " [V]";
+			document.getElementById("label2").innerText = gpio2 + " [V]";
+			document.getElementById("label3").innerText = gpio3 + " [V]";
 			break;
 
 		case 'DATA':
 			console.log("DATA values[1]=" + values[1]);
 			var voltage1 = parseInt(values[1], 10);
-			segment1.Value = voltage1;
+			segment1.Value = voltage1 / uint;
 			if (meter2) {
 				console.log("DATA values[2]=" + values[2]);
 				var voltage2 = parseInt(values[2], 10);
-				segment2.Value = voltage2;
+				segment2.Value = voltage2 / uint;
 			}
 			if (meter3) {
 				console.log("DATA values[3]=" + values[3]);
 				var voltage3 = parseInt(values[3], 10);
-				segment3.Value = voltage3;
+				segment3.Value = voltage3 / uint;
 			}
 			break;
 

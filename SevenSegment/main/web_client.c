@@ -226,6 +226,12 @@ void client_task(void* pvParameters) {
 				sprintf(outBuffer,"METER%c%s%c%s%c%s", DEL,meter1,DEL,meter2,DEL,meter3);
 				ESP_LOGD(TAG, "outBuffer=[%s]", outBuffer);
 				ws_server_send_text_all(outBuffer,strlen(outBuffer));
+
+#if CONFIG_UNIT_V
+				sprintf(outBuffer,"UNIT");
+				ESP_LOGD(TAG, "outBuffer=[%s]", outBuffer);
+				ws_server_send_text_all(outBuffer,strlen(outBuffer));
+#endif
 			} // end if
 
 			if ( strcmp (id, "timer-request") == 0) {

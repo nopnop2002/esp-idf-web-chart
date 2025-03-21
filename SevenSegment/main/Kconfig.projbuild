@@ -122,6 +122,19 @@ menu "Application configuration"
 			help
 				Enable STDOUT.
 
+		choice UNIT
+			prompt "Unit to display"
+			default UNIT_MV
+			help
+				Select Unit to display.
+			config UNIT_MV
+				bool "mV unit"
+				help
+					mV unit.
+			config UNIT_V
+				bool "V unit"
+		endchoice
+
 	endmenu
 
 endmenu
