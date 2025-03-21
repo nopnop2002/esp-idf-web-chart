@@ -23,22 +23,22 @@ function sendText(name) {
 }
 
 window.onload = function() {
-    console.log("onload");
+	console.log("onload");
 	// ColorScheme is 1 to 6
-    segment1.ColorScheme = 2;
-    segment1.DecimalPointType = 2;
-    segment1.NumberOfDecimalPlaces = 0;
-    segment1.NumberOfDigits = 4;
+	segment1.ColorScheme = 2;
+	segment1.DecimalPointType = 2;
+	segment1.NumberOfDecimalPlaces = 0;
+	segment1.NumberOfDigits = 4;
 
-    segment2.ColorScheme = 3;
-    segment2.DecimalPointType = 2;
-    segment2.NumberOfDecimalPlaces = 0;
-    segment2.NumberOfDigits = 4;
+	segment2.ColorScheme = 3;
+	segment2.DecimalPointType = 2;
+	segment2.NumberOfDecimalPlaces = 0;
+	segment2.NumberOfDigits = 4;
 
-    segment3.ColorScheme = 4;
-    segment3.DecimalPointType = 2;
-    segment3.NumberOfDecimalPlaces = 0;
-    segment3.NumberOfDigits = 4;
+	segment3.ColorScheme = 4;
+	segment3.DecimalPointType = 2;
+	segment3.NumberOfDecimalPlaces = 0;
+	segment3.NumberOfDigits = 4;
 };
 
 websocket.onopen = function(evt) {
@@ -103,9 +103,9 @@ websocket.onmessage = function(evt) {
 		case 'UNIT':
 			console.log("UNIT");
 			uint = 1000;
-    		segment1.NumberOfDecimalPlaces = 3;
-    		segment2.NumberOfDecimalPlaces = 3;
-    		segment3.NumberOfDecimalPlaces = 3;
+			segment1.NumberOfDecimalPlaces = 3;
+			segment2.NumberOfDecimalPlaces = 3;
+			segment3.NumberOfDecimalPlaces = 3;
 			document.getElementById("label1").innerText = gpio1 + " [V]";
 			document.getElementById("label2").innerText = gpio2 + " [V]";
 			document.getElementById("label3").innerText = gpio3 + " [V]";
