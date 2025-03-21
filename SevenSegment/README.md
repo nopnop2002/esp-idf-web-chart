@@ -2,7 +2,7 @@
 ![Image](https://github.com/user-attachments/assets/cf1c3fd0-ae0d-470f-adc0-84dbafc8a676)
 
 I used [this](https://github.com/CodeDrome/seven-segment-display-javascript) for segment display.   
-You can easily change the segment colors.   
+You can easily change the segment color and number of digits.   
 ![Image](https://github.com/user-attachments/assets/df79972b-5e53-43f6-b672-07d766ad793c)
 ![Image](https://github.com/user-attachments/assets/c1325027-0794-4157-a3cd-9cb1f6a4ab7c)
 ![Image](https://github.com/user-attachments/assets/c8e8a5b2-4e4d-41a7-95e9-8a02bcf447e1)
