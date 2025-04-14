@@ -1,5 +1,5 @@
 # SevenSegment view
-![Image](https://github.com/user-attachments/assets/cf1c3fd0-ae0d-470f-adc0-84dbafc8a676)
+![Image](https://github.com/user-attachments/assets/f2f0d663-6868-4c41-bacc-9d495e1556c8)
 
 I used [this](https://github.com/CodeDrome/seven-segment-display-javascript) for segment display.   
 You can easily change the segment color and number of digits.   
@@ -12,4 +12,4 @@ You can easily change the segment color and number of digits.
 
 The display unit can be changed from mV to V.   
 ![Image](https://github.com/user-attachments/assets/0e935f0e-541c-4528-94b6-b1782e22a7da)
-![Image](https://github.com/user-attachments/assets/3bd17828-25e4-491b-bf14-116fa53809a7)
+![Image](https://github.com/user-attachments/assets/55782e9c-6bc2-41ab-9f9c-0211ba63b247)

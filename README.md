@@ -24,7 +24,7 @@ This project uses ADC1.
 	![Epoch](https://user-images.githubusercontent.com/6020549/164948839-9a6997b3-6c40-441c-841e-be1a32b36890.jpg)
 
 - Using Seven Segment Display   
-	![Image](https://github.com/user-attachments/assets/cf1c3fd0-ae0d-470f-adc0-84dbafc8a676)
+	![Image](https://github.com/user-attachments/assets/f2f0d663-6868-4c41-bacc-9d495e1556c8)
 
 I used [this](https://github.com/Molorius/esp32-websocket) component.   
 This component can communicate directly with the browser.   
