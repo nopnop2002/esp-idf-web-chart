@@ -26,13 +26,12 @@ This project uses ADC1.
 - Using Seven Segment Display   
 	![Image](https://github.com/user-attachments/assets/f2f0d663-6868-4c41-bacc-9d495e1556c8)
 
-I used [this](https://github.com/Molorius/esp32-websocket) component.   
-This component can communicate directly with the browser.   
-
 # Software requirements
 ESP-IDF V5.0 or later.   
 ESP-IDF V4.4 release branch reached EOL in July 2024.   
 ESP-IDF V5.1 is required when using ESP32-C6.   
+I used [this](https://github.com/Molorius/esp32-websocket) component.   
+This component can communicate directly with the browser.   
 
 # Installation
 ```
