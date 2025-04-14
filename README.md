@@ -21,7 +21,8 @@ This project uses ADC1.
 	![Image](https://github.com/user-attachments/assets/e0823929-d190-495c-858a-cd0efb875fd7)
 
 - Using Epoch   
-	![Epoch](https://user-images.githubusercontent.com/6020549/164948839-9a6997b3-6c40-441c-841e-be1a32b36890.jpg)
+	![Image](https://github.com/user-attachments/assets/a2376a04-1fe2-49b9-bd0d-b98ecf623513)
+
 
 - Using Seven Segment Display   
 	![Image](https://github.com/user-attachments/assets/f2f0d663-6868-4c41-bacc-9d495e1556c8)
