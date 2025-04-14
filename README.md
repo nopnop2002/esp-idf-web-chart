@@ -14,7 +14,7 @@ This project uses ADC1.
 	![Image](https://github.com/user-attachments/assets/ab306473-b771-4c63-a8e2-9f6081f401dd)
 
 - Using Chartjs-Plugin-Streaming   
-	![Chartjs](https://user-images.githubusercontent.com/6020549/164872690-abad13da-563f-44a4-b579-b4dd25598c33.jpg)
+	![Image](https://github.com/user-attachments/assets/bf142ab9-bc34-4118-9643-452733157c5c)
 
 - Using Plotly   
 	![Image](https://github.com/user-attachments/assets/cd3c45d6-61e9-49f0-82fb-6690663633c2)
@@ -22,7 +22,6 @@ This project uses ADC1.
 
 - Using Epoch   
 	![Image](https://github.com/user-attachments/assets/a2376a04-1fe2-49b9-bd0d-b98ecf623513)
-
 
 - Using Seven Segment Display   
 	![Image](https://github.com/user-attachments/assets/f2f0d663-6868-4c41-bacc-9d495e1556c8)
