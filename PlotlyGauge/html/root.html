@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<style>
+	.field {
+		display: flex;
+	}
+	</style>
+	<title>Plotly Gauge</title>
+</head>
+
+<body>
+	<h1 id="header"></h1>
+
+	<div class="field">
+		<div id="gauge1"></div>
+		<div id="gauge2"></div>
+		<div id="gauge3"></div>
+	</div>
+
+	<script>
+		document.getElementById("gauge1").style.display = "none";
+		document.getElementById("gauge2").style.display = "none";
+		document.getElementById("gauge3").style.display = "none";
+
+		/* test code
+		var data = [
+			{
+			domain: { x: [0, 1], y: [0, 1] },
+			value: 200,
+			title: { text: "mV" },
+			type: "indicator",
+			mode: "gauge+number"
+			}
+		];
+
+		var layout = { width: 400, height: 300, margin: { t: 0, b: 0 } };
+
+		Plotly.newPlot('gauge1', data, layout);
+		Plotly.newPlot('gauge2', data, layout);
+		Plotly.newPlot('gauge3', data, layout);
+		*/
+
+	</script>
+
+	<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
+
