@@ -8,22 +8,22 @@ You can use these to convert analog values to digital values.
 The analog values change dynamically and are suitable for this demonstration.
 This project uses ADC1.   
 
-- Using Canvas Gauge
+- Using Canvas Gauge   
 	![web-meter](https://user-images.githubusercontent.com/6020549/164379601-68aaf0e3-f50c-4776-8de1-216ce94d63df.jpg)
 	![web-horizontal](https://user-images.githubusercontent.com/6020549/164379617-143ab49b-af77-4cfe-9d65-6f213d724d28.jpg)
 	![web-vertical](https://user-images.githubusercontent.com/6020549/164379627-dac0078c-0a25-45bb-941f-d5588c87413b.jpg)
 
-- Using Chartjs-Plugin-Streaming
+- Using Chartjs-Plugin-Streaming   
 	![Chartjs](https://user-images.githubusercontent.com/6020549/164872690-abad13da-563f-44a4-b579-b4dd25598c33.jpg)
 
-- Using Plotly
+- Using Plotly   
 	![Image](https://github.com/user-attachments/assets/cd3c45d6-61e9-49f0-82fb-6690663633c2)
 	![Image](https://github.com/user-attachments/assets/e0823929-d190-495c-858a-cd0efb875fd7)
 
-- Using Epoch
+- Using Epoch   
 	![Epoch](https://user-images.githubusercontent.com/6020549/164948839-9a6997b3-6c40-441c-841e-be1a32b36890.jpg)
 
-- Using Seven Segment Display
+- Using Seven Segment Display   
 	![Image](https://github.com/user-attachments/assets/cf1c3fd0-ae0d-470f-adc0-84dbafc8a676)
 
 I used [this](https://github.com/Molorius/esp32-websocket) component.   
