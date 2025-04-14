@@ -9,9 +9,9 @@ The analog values change dynamically and are suitable for this demonstration.
 This project uses ADC1.   
 
 - Using Canvas Gauge   
-	![web-meter](https://user-images.githubusercontent.com/6020549/164379601-68aaf0e3-f50c-4776-8de1-216ce94d63df.jpg)
-	![web-horizontal](https://user-images.githubusercontent.com/6020549/164379617-143ab49b-af77-4cfe-9d65-6f213d724d28.jpg)
-	![web-vertical](https://user-images.githubusercontent.com/6020549/164379627-dac0078c-0a25-45bb-941f-d5588c87413b.jpg)
+	![Image](https://github.com/user-attachments/assets/bab9cbba-28a4-4663-a18c-c5328fe60527)
+	![Image](https://github.com/user-attachments/assets/58989cbc-219c-45a0-a017-f096c7748688)
+	![Image](https://github.com/user-attachments/assets/ab306473-b771-4c63-a8e2-9f6081f401dd)
 
 - Using Chartjs-Plugin-Streaming   
 	![Chartjs](https://user-images.githubusercontent.com/6020549/164872690-abad13da-563f-44a4-b579-b4dd25598c33.jpg)

@@ -219,7 +219,7 @@ void client_task(void* pvParameters) {
 
 			if ( strcmp (id, "init") == 0) {
 				//sprintf(outBuffer,"HEAD%cADC Channel is %d", DEL, adc1_channel1);
-				sprintf(outBuffer,"HEAD%cAnalog Value Display using ESP32", DEL);
+				sprintf(outBuffer,"HEAD%cGauge Display using ESP32", DEL);
 				ESP_LOGD(TAG, "outBuffer=[%s]", outBuffer);
 				ws_server_send_text_all(outBuffer,strlen(outBuffer));
 

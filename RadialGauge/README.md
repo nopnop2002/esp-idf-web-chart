@@ -1,5 +1,5 @@
-# RadialGauge view
-![web-meter](https://user-images.githubusercontent.com/6020549/164379601-68aaf0e3-f50c-4776-8de1-216ce94d63df.jpg)
+# Radial Gauge display using Canvas Gauge
+![Image](https://github.com/user-attachments/assets/bab9cbba-28a4-4663-a18c-c5328fe60527)
 
 I used [this](https://canvas-gauges.com/) for gauge display.   
 You can easily change the gauge design.   

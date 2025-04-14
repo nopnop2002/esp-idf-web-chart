@@ -1,5 +1,5 @@
-# VerticalLinearGauge view
-![web-vertical](https://user-images.githubusercontent.com/6020549/164379627-dac0078c-0a25-45bb-941f-d5588c87413b.jpg)
+# Vertical Linear Gauge display using Canvas Gauge
+![Image](https://github.com/user-attachments/assets/ab306473-b771-4c63-a8e2-9f6081f401dd)
 
 I used [this](https://canvas-gauges.com/) for gauge display.   
 You can easily change the gauge design.   
