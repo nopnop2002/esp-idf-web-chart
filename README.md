@@ -17,7 +17,8 @@ This project uses ADC1.
 	![Chartjs](https://user-images.githubusercontent.com/6020549/164872690-abad13da-563f-44a4-b579-b4dd25598c33.jpg)
 
 - Using Plotly
-	![Plotly](https://user-images.githubusercontent.com/6020549/164872660-be85b191-c0ed-4f06-b04c-1ba6c020d6d7.jpg)
+	![Image](https://github.com/user-attachments/assets/cd3c45d6-61e9-49f0-82fb-6690663633c2)
+	![Image](https://github.com/user-attachments/assets/e0823929-d190-495c-858a-cd0efb875fd7)
 
 - Using Epoch
 	![Epoch](https://user-images.githubusercontent.com/6020549/164948839-9a6997b3-6c40-441c-841e-be1a32b36890.jpg)
